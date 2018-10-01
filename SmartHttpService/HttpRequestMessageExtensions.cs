@@ -38,16 +38,5 @@ namespace SmartHttpService
                 return "";
             }
         }
-
-        public static IPAddress GetClientIpAddress(this HttpRequestMessage request)
-        {
-            var ipString = request.GetClientIpString();
-            IPAddress ipAddress = new IPAddress(0);
-            if (IPAddress.TryParse(ipString, out ipAddress))
-            {
-                return ipAddress;
-            }
-            return ipAddress;
-        }
     }
 }

@@ -88,7 +88,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AppMapper.txt" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\pub.pubxml" />
     <None Include="Web.config">
@@ -99,13 +98,11 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HttpController.cs" />
-    <Compile Include="EncryptExtendHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ApiNotFoundSelector.cs" />
     <Compile Include="HttpRequestMessageExtensions.cs" />
-    <Compile Include="IP.cs" />
     <Compile Include="Models\GetTokenRequest.cs" />
     <Compile Include="Models\GetTokenResponse.cs" />
     <Compile Include="Models\SaveTokenRequest.cs" />

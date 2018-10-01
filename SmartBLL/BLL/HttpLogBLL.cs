@@ -23,19 +23,5 @@ namespace SmartBLL
               
             }
         }
-
-
-        public static void ApiCommitSuccess(Guid executeID)
-        {
-            try
-            {
-                var sql = "update HttpLogInterfaceCall set IsSuccess=1,ExecuteResult=1 where ExecuteID=@ExecuteID";
-                HttpLogInterfaceCallRep.Do(db => db.DapperDo(con => con.Execute(sql, new { ExecuteID = executeID })));
-            }
-            catch (Exception ex)
-            {
-               
-            }
-        }
     }
 }
