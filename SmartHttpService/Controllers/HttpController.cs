@@ -39,50 +39,7 @@ namespace SmartHttpService.Controllers
             var httpMessage = HttpFacade.GetHttpMessage(request.AppID, request.Method, httpTag);
             if (httpMessage != null && httpMessage.IsNeedLogin)
             {
-                var httpkey = httpTag.GetKey(request.AppID);
-                var token = Redis.GetHelper().StringGet(httpkey);
-                if (string.IsNullOrWhiteSpace(token))
-                {
-                    return new HttpReturn()
-                    {
-                        AppID = request.AppID,
-                        Exception = "用户信息不存在,请先登陆!",
-                        ExceptionMessage = "用户信息不存在,请先登陆!",
-                        HttpMethod = httpMessage.Method,
-                        IsServiceCache = false,
-                        LoopTime = 0,
-                        Method = request.Method,
-                        Moudle = "",
-                        Request = "",
-                        RequestEncrypt = "",
-                        RequestObjs = request.RequestObjs,
-                        Response = "用户信息不存在,请先登陆!",
-                        ResponseEncrypt = "",
-                        StatusCode = 500,
-                        Url = "",
-                    };
-                }
-                else if (token != httpTag.Token)
-                {
-                    return new HttpReturn()
-                    {
-                        AppID = request.AppID,
-                        Exception = "用户未登录或者登录超时!",
-                        ExceptionMessage = "用户未登录或者登录超时!",
-                        HttpMethod = httpMessage.Method,
-                        IsServiceCache = false,
-                        LoopTime = 0,
-                        Method = request.Method,
-                        Moudle = "",
-                        Request = "",
-                        RequestEncrypt = "",
-                        RequestObjs = request.RequestObjs,
-                        Response = "用户未登录或者登录超时!",
-                        ResponseEncrypt = "",
-                        StatusCode = 501,
-                        Url = "",
-                    };
-                }
+                //这里做token验证
             }
             httpTag.IP = this.Request.GetClientIpString();
             var ret = HttpFacade.Request(request, httpMessage, httpTag);
@@ -113,22 +70,7 @@ namespace SmartHttpService.Controllers
                 var httpMessage = HttpFacade.GetHttpMessage(request.AppID, request.Method, httpTag);
                 if (httpMessage != null && httpMessage.IsNeedLogin)
                 {
-                    var httpkey = httpTag.GetKey(request.AppID);
-                    var token = Redis.GetHelper().StringGet(httpkey);
-                    if (string.IsNullOrWhiteSpace(token))
-                    {
-                        response.Headers.Add("method", request.Method);
-                        response.StatusCode = (HttpStatusCode)500;
-                        response.Content = new StringContent("用户信息不存在,请先登陆!");
-                        return response;
-                    }
-                    else if (token != httpTag.Token)
-                    {
-                        response.Headers.Add("method", request.Method);
-                        response.StatusCode = (HttpStatusCode)501;
-                        response.Content = new StringContent("用户未登录或者登录超时!");
-                        return response;
-                    }
+                    //这里做登录验证
                 }
                 httpTag.IP = this.Request.GetClientIpString();
                 var ret = HttpFacade.Request(request, httpMessage, httpTag);

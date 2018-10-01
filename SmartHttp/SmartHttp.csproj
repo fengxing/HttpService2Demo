@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\AppMapperConfig.cs" />
     <Compile Include="Base\HttpExtendHelper.cs" />
     <Compile Include="Base\HttpHelper.cs" />
     <Compile Include="Base\HttpRequest.cs" />

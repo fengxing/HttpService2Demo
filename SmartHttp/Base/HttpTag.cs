@@ -1,6 +1,4 @@
-﻿using SmartHttp.Base;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace SmartHttp
 {
@@ -102,12 +100,6 @@ namespace SmartHttp
             this.Browser = "";
             this.Retry = false;
             this.IsPreLoad = false;
-        }
-
-        public string GetKey(int appID)
-        {
-            var mapperAppID = AppMapperConfig.GetMapperAppID(appID);
-            return (mapperAppID + "Token" + this.UID).ToLower();
         }
     }
 }
