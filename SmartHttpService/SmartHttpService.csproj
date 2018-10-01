@@ -103,9 +103,6 @@
     </Compile>
     <Compile Include="Helper\ApiNotFoundSelector.cs" />
     <Compile Include="HttpRequestMessageExtensions.cs" />
-    <Compile Include="Models\GetTokenRequest.cs" />
-    <Compile Include="Models\GetTokenResponse.cs" />
-    <Compile Include="Models\SaveTokenRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
