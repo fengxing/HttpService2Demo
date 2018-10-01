@@ -29,23 +29,12 @@ namespace SmartHttpService
             GlobalConfiguration.Configure(RegisterAttrHandler);
             ServicePointManager.ServerCertificateValidationCallback += (object sender, System.Security.Cryptography.X509Certificates.X509Certificate cert, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors error) => { return true; };
             ServicePointManager.Expect100Continue = false;
-            Smart.Http.AllEncrypt.Facade.LoadVipOperator();
-            DapperHelper.DapperDb.Register(new CommitUser());
-            SmartLogHelper.LogTxt.GetFilePath = GetPath;
         }
 
         public static string GetPath()
         {
             var path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin", "Log", DateTime.Now.ToString("yyyyMMdd"));
             return path;
-        }
-
-        public class CommitUser : ICommitUser
-        {
-            public SmartBaseEntity.CommitUser GetCommitUser()
-            {
-                return new SmartBaseEntity.CommitUser();
-            }
         }
 
         public static void Register(HttpConfiguration config)
