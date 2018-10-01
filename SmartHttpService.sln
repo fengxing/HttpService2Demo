@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHttpService", "SmartHttpService\SmartHttpService.csproj", "{22F25F80-3EB5-4FE2-8DF1-157882AED1AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHttp", "SmartHttp\SmartHttp.csproj", "{2435E183-C0C5-473A-8539-AA606E640549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSDKHelper", "SmartSDKHelper\SmartSDKHelper.csproj", "{1228991F-0E92-47DD-B903-AEC958C56AEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBLL", "SmartBLL\SmartBLL.csproj", "{3B5F34AD-F582-4794-9088-D2B69F3E2BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A44FF208-DB15-4C5E-9DC8-01A4B64B116A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHttpEntity", "SmartHttpEntity\SmartHttpEntity.csproj", "{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22F25F80-3EB5-4FE2-8DF1-157882AED1AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F25F80-3EB5-4FE2-8DF1-157882AED1AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F25F80-3EB5-4FE2-8DF1-157882AED1AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F25F80-3EB5-4FE2-8DF1-157882AED1AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2435E183-C0C5-473A-8539-AA606E640549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2435E183-C0C5-473A-8539-AA606E640549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2435E183-C0C5-473A-8539-AA606E640549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2435E183-C0C5-473A-8539-AA606E640549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1228991F-0E92-47DD-B903-AEC958C56AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1228991F-0E92-47DD-B903-AEC958C56AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1228991F-0E92-47DD-B903-AEC958C56AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1228991F-0E92-47DD-B903-AEC958C56AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B5F34AD-F582-4794-9088-D2B69F3E2BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B5F34AD-F582-4794-9088-D2B69F3E2BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B5F34AD-F582-4794-9088-D2B69F3E2BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B5F34AD-F582-4794-9088-D2B69F3E2BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44FF208-DB15-4C5E-9DC8-01A4B64B116A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44FF208-DB15-4C5E-9DC8-01A4B64B116A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44FF208-DB15-4C5E-9DC8-01A4B64B116A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44FF208-DB15-4C5E-9DC8-01A4B64B116A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E80A5C1B-488C-402A-BCBB-8A79B7651C2E}
+	EndGlobalSection
+EndGlobal
