@@ -253,24 +253,6 @@ namespace SmartHttpEntity
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public SearchServiceResponse GetDefine()
-        {
-            if (!string.IsNullOrWhiteSpace(Define))
-            {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<SearchServiceResponse>(Define);
-            }
-            else
-            {
-                return new SearchServiceResponse() {
-                   
-                };
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public HttpMessage()
         {
             this.Version = "1.0";

@@ -63,12 +63,10 @@
     <Compile Include="Base\HttpExtendHelper.cs" />
     <Compile Include="Base\HttpHelper.cs" />
     <Compile Include="Base\HttpRequest.cs" />
-    <Compile Include="Base\HttpRequests.cs" />
     <Compile Include="Base\HttpReturn.cs" />
     <Compile Include="Base\HttpTag.cs" />
     <Compile Include="Base\RequestInfo.cs" />
     <Compile Include="HttpFacade.cs" />
-    <Compile Include="Base\MQHelper.cs" />
     <Compile Include="Network\Processer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

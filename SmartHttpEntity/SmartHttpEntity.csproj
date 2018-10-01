@@ -56,22 +56,11 @@
     <Compile Include="Http\HttpInvokeArg.cs" />
     <Compile Include="Http\HttpLogInterfaceCall.cs" />
     <Compile Include="Http\HttpMessage.cs" />
-    <Compile Include="Http\HttpNotify.cs" />
-    <Compile Include="Http\HttpSubMoudle.cs" />
     <Compile Include="Http\HttpType.cs" />
-    <Compile Include="Test\OutputArg.cs" />
-    <Compile Include="Test\TestInputArg.cs" />
-    <Compile Include="Test\TempArg.cs" />
-    <Compile Include="Test\TestCaseArg.cs" />
     <Compile Include="Http\InterfaceArg.cs" />
-    <Compile Include="Http\SearchServiceResponse.cs" />
-    <Compile Include="Http\ServiceAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Http\Status.cs" />
     <Compile Include="Http\WsExcepiton.cs" />
-    <Compile Include="Test\TestCase.cs" />
-    <Compile Include="Test\TestPackage.cs" />
-    <Compile Include="Test\TestPackageArg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
