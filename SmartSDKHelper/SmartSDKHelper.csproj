@@ -50,9 +50,6 @@
     <Compile Include="Base\IJsonConvert.cs" />
     <Compile Include="Base\ILogin.cs" />
     <Compile Include="Base\LoginToken.cs" />
-    <Compile Include="Base\NResult.cs" />
-    <Compile Include="Base\NResults.cs" />
-    <Compile Include="ExtendHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\Result.cs" />
     <Compile Include="SmartOutSide.cs" />
