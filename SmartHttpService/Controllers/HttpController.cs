@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
-using SmartHttp;
+﻿using SmartHttp;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -10,6 +8,11 @@ namespace SmartHttpService.Controllers
 {
     public class HttpController : BaseController
     {
+        /// <summary>
+        /// 这个方法用户httpweb站点(返回接口请求和返回详情信息)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("Http/HttpRequest")]
         [HttpPost]
         public HttpReturn HttpRequest(HttpRequest request)
@@ -50,6 +53,11 @@ namespace SmartHttpService.Controllers
             return ret;
         }
 
+        /// <summary>
+        /// 这个方法给外部调用
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("Http/CHttpRequest")]
         [HttpPost]
 #if DEBUG
@@ -117,6 +125,10 @@ namespace SmartHttpService.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取服务器时间
+        /// </summary>
+        /// <returns></returns>
         [Route("Http/CTimeRequest")]
         [HttpGet]
         public HttpResponseMessage CTimeRequest()

@@ -71,11 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\HttpLogBaseRepository.cs" />
-    <Compile Include="BLL\Conn.cs" />
     <Compile Include="BLL\HttpConfigBLL.cs" />
     <Compile Include="BLL\HttpLogBLL.cs" />
     <Compile Include="BLL\HttpMessageBLL.cs" />
-    <Compile Include="Base\HttpDbFactory.cs" />
     <Compile Include="DrapperHelper.cs" />
     <Compile Include="Base\HttpLogDbFactory.cs" />
     <Compile Include="HttpLogInterfaceCallRep.cs" />
