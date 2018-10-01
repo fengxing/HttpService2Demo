@@ -1,5 +1,4 @@
-﻿using RedisHelp;
-using SmartBLL;
+﻿using SmartBLL;
 using SmartHttp.Network;
 using SmartHttpEntity;
 using System;
@@ -14,7 +13,6 @@ namespace SmartHttp
         private static ConcurrentDictionary<string, string> httpConfigs = new ConcurrentDictionary<string, string>();
         private static DateTime time = DateTime.Now;
         private const string httpConfigPrefix = "httpconfig-";
-        private static RedisHelper redis = Redis.GetHelper();
 
 
         public static HttpMessage GetHttpMessage(int appID, string method, HttpTag httpTag)
@@ -181,58 +179,7 @@ namespace SmartHttp
                 }
                 #endregion
 
-                #region 缓存   
                 requestInfo.Start();
-                if (httpMessage.IsCache && httpMessage.CacheSeconds > 0 && redis != null)
-                {
-                    var key = request.RequestObjs.Count > 0 ? string.Join("", request.RequestObjs) : "";
-                    var token = httpMessage.AppID + httpMessage.Method + httpTag.UID + key;
-                    var cache = redis.StringGet(token);
-                    if (!string.IsNullOrWhiteSpace(cache))
-                    {
-                        var ret = new HttpReturn()
-                        {
-                            IsServiceCache = true,
-                            Response = cache,
-                            HttpMethod = httpMessage.HttpType.ToString() + "Cache",
-                            Exception = "",
-                            ExceptionMessage = "",
-                            Method = httpMessage.Method,
-                            Request = "",
-                            RequestObjs = request.RequestObjs,
-                            AppID = httpMessage.AppID,
-                            RequestEncrypt = "",
-                            ResponseEncrypt = "",
-                            StatusCode = 200,
-                            Url = httpMessage.Url,
-                            Moudle = httpMessage.Moudle,
-                        };
-                        requestInfo.HttpReturn = ret;
-                        requestInfo.Stop();
-                        requestInfo.Log();
-                        return ret;
-                    }
-                    else
-                    {
-                        var ret = Processer.Process(requestInfo);
-                        if (ret.IsSuccess)
-                        {
-                            try
-                            {
-                                redis.StringSet(token, ret.Response, TimeSpan.FromSeconds(httpMessage.CacheSeconds));
-                            }
-                            catch (Exception)
-                            {
-
-                            }
-                        }
-                        requestInfo.HttpReturn = ret;
-                        requestInfo.Stop();
-                        requestInfo.Log();
-                        return ret;
-                    }
-                }
-                #endregion
                 return Processer.Process(requestInfo);
             }
             catch (Exception ex)
