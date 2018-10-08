@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9835CE0A-55C5-42AD-80AD-25F23BA9AF7C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApiTranService</RootNamespace>
+    <AssemblyName>ApiTranService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SmartBaseEntity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SmartBaseEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartDbHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SmartDbHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SmartHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HospitalService.cs" />
+    <Compile Include="IService\HttpTag.cs" />
+    <Compile Include="IService\ITagService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApiTranDb\ApiTranDb.csproj">
+      <Project>{551E8C2F-8FBA-4ECD-B5E4-0DA239CF5E54}</Project>
+      <Name>ApiTranDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApiTranEntity\ApiTranEntity.csproj">
+      <Project>{5090A592-2F7A-435C-94F4-C3436E210CBD}</Project>
+      <Name>ApiTranEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApiTranRequest\ApiTranRequest.csproj">
+      <Project>{5C23D434-A764-4A3F-A45B-F8BFD9EDE949}</Project>
+      <Name>ApiTranRequest</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
