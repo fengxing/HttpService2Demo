@@ -1,0 +1,197 @@
+﻿@using SmartHttpWeb;
+@{
+    var e = System.Configuration.ConfigurationManager.AppSettings["E"];
+}
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta name="MobileOptimized" content="320">
+    <link href="~/assets/css/plugins/font.min.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/uniform.default.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/daterangepicker-bs3.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/colorpicker.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/datetimepicker.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/DT_bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/select2_metro.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/bootstrap-switch-metro.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/clockface.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/uploadify.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/uploadifive.css" rel="stylesheet" />
+    <link href="~/assets/css/plugins/jquery.tagsinput.css" rel="stylesheet" />
+    <link href="/assets/css/mp/style-metronic.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/mp/style.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/mp/style-responsive.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/mp/default.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="/assets/css/mp/custom.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/mp/blog.css" rel="stylesheet" />
+    <link href="/assets/css/mp/style-mp.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body id="">
+    <div class="topbar clearfix" style="height:70px;">
+        <div class="global-hd-bar clearfix">
+            <div class="hd-bar-r">
+                <div class="hd-welcome fl">欢迎您！</div>
+
+                <div class="hd-menu dropdown fl">
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" href="javascript:void(0)">
+                        @ViewBag.name<i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        @if (e == "prd")
+                        {
+                            <li><a href="" target="_blank">个人信息</a></li>
+                            <li><a href="" target="_blank">修改密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href="">退出</a></li>
+                        }
+                    </ul>
+                </div>
+                <dl class="hd-nav fl">
+                    @if (e == "prd")
+                    {
+                        <dd><a href="" target="_blank">账号管理</a></dd>
+                    }
+                </dl>
+            </div>
+        </div>
+        <div style="float: right; padding-right: 50px; margin-top: -40px; margin-right: 237px;">
+            <ul class="nav navbar-nav pull-right"></ul>
+        </div>
+        <div class="navmenu clearfix">
+            <div style="margin-left: 20px; margin-top: -5px;">
+                <a href="/"><b>接口监控与配置平台</b></a>
+            </div>
+        </div>
+    </div>
+    <div class="page-container">
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="sidebar-toggler-wrapper">
+                </li>
+                <li class="active">
+                    <a href="javascript:;">
+                        <i class="icon-list-ul"></i>
+                        <span class="title">接口配置</span>
+                        <span class="selected"></span>
+                        <span class="open arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="active">
+                            <a href="/HttpMessage/Index">
+                                接口配置
+                                <span class="open "></span>
+                            </a>
+
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div class="modal fade" id="modal_tip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="modal_tip_body" style="word-break: break-all; width: 500px; overflow: hidden;"></p>
+                        </div>
+                        <div class="modal-footer hide">
+                            <button type="button" class="btn blue">保存</button>
+                            <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+
+
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+        <div class="footer-inner hidden">
+            2017 &copy; ERP.Smartee.cn by czj.
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="icon-angle-up"></i>
+            </span>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="/assets/plugins/respond.min.js"></script>
+    <script src="/assets/plugins/excanvas.min.js"></script>
+    <![endif]-->
+
+    <script src="~/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="~/assets/js/ejs_production.js"></script>
+    <script src="~/assets/js/view.js"></script>
+    <script src="~/assets/js/jquery.placeholder.js"></script>
+    <script src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/json2.min.js"></script>
+    <script src="~/assets/js/twitter-bootstrap-hover-dropdown.min.js"></script>
+    <script src="~/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/js/jquery.blockui.min.js"></script>
+    <script src="~/assets/js/jquery.cookie.min.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/jquery.uniform.min.js"></script>
+    <script src="~/assets/js/moment.min.js"></script>
+    <script src="~/assets/js/bootstrap-datetimepicker.js"></script>
+    <script src="~/assets/js/daterangepicker.js"></script>
+    <script src="~/assets/js/bootstrap-timepicker.js"></script>
+    <script src="~/assets/js/clockface.js"></script>
+    <script src="~/assets/js/bootstrap-colorpicker.js"></script>
+    <script src="~/assets/js/spinner.min.js"></script>
+    <script src="~/assets/js/select2.min.js"></script>
+    <script src="~/assets/js/bootstrap-switch.min.js"></script>
+
+    <script src="~/assets/js/jquery.dataTables.js"></script>
+    <script src="~/assets/js/DT_bootstrap.js"></script>
+    <script src="~/assets/js/dataTables.fixedColumns.js"></script>
+
+    <script src="~/assets/js/jquery.uploadify.v2.1.4.min.js"></script>
+    <script src="~/assets/js/jquery.uploadifive.min.js"></script>
+    <script src="~/assets/js/jquery.tagsinput.min.js"></script>
+
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/assets/scripts/app.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            //IE8,IE9 Placeholder
+            $('input, textarea').placeholder();
+            //autocomplete 置为off
+            $('input, textarea, select').attr("autocomplete", "off");
+            App.init();
+        });
+    </script>
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,117 @@
+﻿@model  SmartHttpEntity.HttpConfig
+@{
+    ViewBag.Title = "配置编辑";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+}
+
+
+
+<div class="row">
+    <div class="col-md-11">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form" id="form1" class="form-horizontal">
+                    <input name="ID" id="ID" type="hidden" value="@Model.ID">
+                    <input name="RowVersion" id="RowVersion" type="hidden" value="@Model.RowVersion">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">名称：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        @if (Model.Name == "IsProduct")
+                                        {
+                                            <input name="Name" id="Name" type="text" placeholder="名称" value="@Model.Name" readonly="readonly" class="form-control">
+                                        }
+                                        else
+                                        {
+                                            <input name="Name" id="Name" type="text" placeholder="名称" value="@Model.Name" class="form-control">
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">测试值：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="TestValue" id="TestValue" type="text" placeholder="测试值" value="@Model.TestValue" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">正式值：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="ProdcutValue" id="ProdcutValue" type="text" placeholder="正式值" value="@Model.ProdcutValue" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">描述：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Description" id="Description" type="text" placeholder="描述" value="@Model.Description" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="button" class="btn green" id="btnSave" onclick="Add()">保 存</button>
+                                        <button type="reset" class="btn default">取 消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        function Add() {
+            var postData = $("#form1").ToMVCData();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/UpdateHttpConfig",
+                success: function (res) {
+                    if (res.result == false) {
+                        App.showTips(res.err, 2500);
+                    }
+                    else {
+                        App.showTips("保存成功", 2500);
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+    </script>
+}

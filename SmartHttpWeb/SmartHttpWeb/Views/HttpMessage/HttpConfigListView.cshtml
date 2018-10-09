@@ -1,0 +1,44 @@
+﻿@model SmartHttpWeb.Models.HttpConfigListVM
+@{
+    Layout = null;
+}
+<div class="tableinner">
+    <table class="table table-striped table-bordered table-advance table-hover fixed_table">
+        @if (Model.HttpConfigs.Count > 0)
+        {
+
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>值</th>
+                    <th>描述</th>
+                    <th>操 作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entity in Model.HttpConfigs)
+                {
+                    <tr>
+                        <td class="tac">@entity.Name</td>
+                        <td class="tac">
+                                @entity.TestValue
+                        </td>
+                        <td class="tac">@entity.Description</td>
+                        <td class="tac">
+                            <a href="@Url.Action("UpdateHttpConfig", "HttpMessage", new { id = entity.ID })" class="btn default btn-xs purple" target="_blank"><i class="icon-pencil"></i>编 辑</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                <tr>
+                    <td style="text-align: center">暂无数据....</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+@Html.Raw(ViewBag.pager)

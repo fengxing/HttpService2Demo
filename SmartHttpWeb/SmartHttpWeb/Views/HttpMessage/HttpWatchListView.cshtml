@@ -1,0 +1,50 @@
+﻿@using SmartHttpWeb;
+@model List<Mallcoo.Http.Repository.HttpMessageWatch>
+@{
+    Layout = null;
+    var isEdit = true;
+    var isList = true;
+}
+<div class="tableinner">
+    <table class="table table-striped table-bordered table-advance table-hover fixed_table">
+        @if (Model.Count > 0)
+        {
+
+            <thead>
+                <tr>
+                    <th>MallID</th>
+                    <th>应用名称</th>
+                    <th>操 作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entity in Model)
+                {
+                    <tr>
+                        <td class="tac">@entity.MallID</td>
+                        <td class="tac">@entity.MallName</td>
+                        <td class="tac">
+                            @if (isEdit)
+                            {
+                                <a href="@Url.Action("UpdateHttpWatch", "HttpMessage", new { id = entity.ID })" class="btn default btn-xs purple" target="_blank"><i class="icon-pencil"></i>编 辑</a>                               
+                            }
+                            @if (isList)
+                            {
+                                <a href="@Url.Action("HttpWatchView", "HttpMessage", new { id = entity.ID })" class="btn default btn-xs purple" target="_blank"><i class="icon-pencil"></i>查 看</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                <tr>
+                    <td style="text-align: center">暂无数据....</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+@Html.Raw(ViewBag.pager)

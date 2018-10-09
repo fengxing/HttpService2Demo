@@ -1,0 +1,169 @@
+﻿@model Mallcoo.Http.Repository.HttpMessageWatch
+@{
+    ViewBag.Title = "配置异常监控";
+    List<SmartHttpWeb.Entity.Malls> mallList = ViewBag.mallList;
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+}
+
+<script src="~/Scripts/plugins/knockout/knockout-3.3.0.js"></script>
+<div class="row">
+    <div class="col-md-11">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form" id="form1" class="form-horizontal">
+                    <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">应用：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <select id="MallID" class="form-control select2me" name="MallID">
+                                            <option value="@Model.MallID" selected="selected">[@Model.MallID]@Model.MallName</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">联系人：<span class="required"></span></label>
+                                    <div class="col-md-9">
+                                        <button type="button" class="btn green" id="btnSave" onclick="AddArgs()">新 增</button>
+                                        <div class="tableinner">
+                                            <table class="table table-striped table-bordered table-advance table-hover fixed_table" data-bind="visible:WSInterfaceArgs().length>0" style="display:none;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>接口类型</th>
+                                                        <th>职务</th>
+                                                        <th>姓名</th>
+                                                        <th>手机号</th>
+                                                        <th>邮箱</th>
+                                                        <th>操 作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-bind="foreach: { data: WSInterfaceArgs, as: 'WSInterfaceArg' }">
+                                                    <tr>
+                                                        <td class="tac">
+                                                            <select id="Moudle" class="form-control input-small select2me" name="Moudle" data-bind="value:WSInterfaceArg.Moudle">
+                                                                <option value="0">会员</option>
+                                                                <option value="3">礼品</option>
+                                                                <option value="1">寻车</option>
+                                                                <option value="4">缴费</option>
+                                                                <option value="2">其他</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="tac">
+                                                            <input name="Job" id="Job" type="text" placeholder="职务" value="" class="form-control input-small" data-bind="value:WSInterfaceArg.Job">
+                                                        </td>
+                                                        <td class="tac">
+                                                            <input name="Name" id="Name" type="text" placeholder="姓名" value="" class="form-control input-small" data-bind="value:WSInterfaceArg.Name" ">
+                                                        </td>
+                                                        <td class="tac">
+                                                            <input name="Mobile" id="Mobile" type="text" placeholder="手机号" maxlength="11" value="" class="form-control input-small" data-bind="value:WSInterfaceArg.Mobile">
+                                                        </td>
+                                                        <td class="tac">
+                                                            <input name="Email" id="Email" type="text" placeholder="邮箱" value="" class="form-control input-small" data-bind="value:WSInterfaceArg.Email" ">
+                                                        </td>
+                                                        <td class="tac">
+                                                            <button onclick="return Delete(this)" class="btn btn-danger" data-bind="attr: { count: WSInterfaceArg.Count }">删除</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="button" class="btn green" id="btnSave" onclick="Update()">保 存</button>
+                                        <button type="reset" class="btn default">取 消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var viewModel = function () {
+            var self = this;
+            var wsInterfaceArgs = eval('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.HttpMessageWatchDatas))');
+            var args = [];
+            for (var i = 0; i < wsInterfaceArgs.length; i++) {
+                args.push({ Count: i, Name: wsInterfaceArgs[i].Name, Job: wsInterfaceArgs[i].Job, Mobile: wsInterfaceArgs[i].Mobile, Moudle: wsInterfaceArgs[i].Moudle, Email: wsInterfaceArgs[i].Email });
+            }
+            self.WSInterfaceArgs = ko.observableArray(args);
+            self.AddWSInterfaceArg = function (count, job, name, mobile, Moudle, email) {
+                self.WSInterfaceArgs.push({ Count: count, Name: name, Job: job, Mobile: mobile, Moudle: Moudle, Email: email });
+            }
+            self.DeleteWSInterfaceArg = function (count) {
+                for (var i = 0; i < self.WSInterfaceArgs().length; i++) {
+                    if (self.WSInterfaceArgs()[i].Count == count) {
+                        var removeItem = self.WSInterfaceArgs()[i];
+                        self.WSInterfaceArgs().remove(removeItem);
+                        WSInterfaceArgs(self.WSInterfaceArgs());
+                    }
+                }
+            }
+        };
+        ko.applyBindings(viewModel);
+
+        function AddArgs() {
+            var items = self.WSInterfaceArgs();
+            var length = 0;
+            if (items.length > 0) {
+                length = items[items.length - 1].Count + 1;
+            }
+            AddWSInterfaceArg(self.WSInterfaceArgs().length, "", "", "");
+        }
+
+        function Delete(obj) {
+            var count = $(obj).attr("count");
+            DeleteWSInterfaceArg(count);
+            return false;
+        }
+
+
+
+        function Update() {
+            var postData = $("#form1").ToMVCData();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/UpdateHttpWatch",
+                success: function (res) {
+                    if (res.result == false) {
+                        App.showTips(res.err, 2500);
+                    }
+                    else {
+                        App.showTips("保存成功", 2500);
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+    </script>
+}

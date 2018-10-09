@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D4DDB4CF-A939-46BC-ACEC-995EED6F3A6E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartHttpWeb</RootNamespace>
+    <AssemblyName>SmartHttpWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseControllerController.cs" />
+    <Compile Include="Controllers\HttpMessageController.cs" />
+    <Compile Include="Controllers\NotifyController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\ExtendHelper.cs" />
+    <Compile Include="Helper\HttpHelper.cs" />
+    <Compile Include="Helper\HttpRequestHelper.cs" />
+    <Compile Include="Helper\PagerV2.cs" />
+    <Compile Include="Models\Config\HttpConfigAddUpdateVM.cs" />
+    <Compile Include="Models\Config\HttpConfigListVM.cs" />
+    <Compile Include="Models\Config\HttpConfigVM.cs" />
+    <Compile Include="Models\Config\HttpMessageVM.cs" />
+    <Compile Include="Models\HttpMessage\HttpAppAddUpdateVM.cs" />
+    <Compile Include="Models\HttpMessage\RunValueVM.cs" />
+    <Compile Include="Models\HttpMessage\UpdateValidVM.cs" />
+    <Compile Include="Models\HttpMessage\HttpMessageAddUpdateVM.cs" />
+    <Compile Include="Models\HttpNotify\HttpNotifyAddUpdate.cs" />
+    <Compile Include="Models\HttpNotify\NotifyUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\mp\blog.css" />
+    <Content Include="assets\css\mp\custom.css" />
+    <Content Include="assets\css\mp\default.css" />
+    <Content Include="assets\css\mp\plugins.css" />
+    <Content Include="assets\css\mp\style-metronic.css" />
+    <Content Include="assets\css\mp\style-mp-home.css" />
+    <Content Include="assets\css\mp\style-mp.css" />
+    <Content Include="assets\css\mp\style-responsive.css" />
+    <Content Include="assets\css\mp\style.css" />
+    <Content Include="assets\css\plugins\bootstrap-switch-metro.css" />
+    <Content Include="assets\css\plugins\bootstrap-timepicker.min.css" />
+    <Content Include="assets\css\plugins\bootstrap.min.css" />
+    <Content Include="assets\css\plugins\clockface.css" />
+    <Content Include="assets\css\plugins\colorpicker.css" />
+    <Content Include="assets\css\plugins\datepicker.css" />
+    <Content Include="assets\css\plugins\daterangepicker-bs3.css" />
+    <Content Include="assets\css\plugins\datetimepicker.css" />
+    <Content Include="assets\css\plugins\DT_bootstrap.css" />
+    <Content Include="assets\css\plugins\font.min.css" />
+    <Content Include="assets\css\plugins\jquery.tagsinput.css" />
+    <Content Include="assets\css\plugins\select2-spinner.gif" />
+    <Content Include="assets\css\plugins\select2.png" />
+    <Content Include="assets\css\plugins\select2_metro.css" />
+    <Content Include="assets\css\plugins\uniform.default.css" />
+    <Content Include="assets\css\plugins\uploadifive.css" />
+    <Content Include="assets\css\plugins\uploadify.css" />
+    <Content Include="assets\img\ajax-loading.gif" />
+    <Content Include="assets\js\bootstrap-colorpicker.js" />
+    <Content Include="assets\js\bootstrap-datepicker.js" />
+    <Content Include="assets\js\bootstrap-datetimepicker.js" />
+    <Content Include="assets\js\bootstrap-switch.min.js" />
+    <Content Include="assets\js\bootstrap-timepicker.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\clockface.js" />
+    <Content Include="assets\js\dataTables.fixedColumns.js" />
+    <Content Include="assets\js\daterangepicker.js" />
+    <Content Include="assets\js\DT_bootstrap.js" />
+    <Content Include="assets\js\ejs_production.js" />
+    <Content Include="assets\js\jquery-1.10.2.min.js" />
+    <Content Include="assets\js\jquery-migrate-1.2.1.min.js" />
+    <Content Include="assets\js\jquery.blockui.min.js" />
+    <Content Include="assets\js\jquery.cookie.min.js" />
+    <Content Include="assets\js\jquery.dataTables.js" />
+    <Content Include="assets\js\jquery.placeholder.js" />
+    <Content Include="assets\js\jquery.slimscroll.min.js" />
+    <Content Include="assets\js\jquery.tagsinput.min.js" />
+    <Content Include="assets\js\jquery.uniform.min.js" />
+    <Content Include="assets\js\jquery.uploadifive.min.js" />
+    <Content Include="assets\js\jquery.uploadify.v2.1.4.min.js" />
+    <Content Include="assets\js\jquery.validate.min.js" />
+    <Content Include="assets\js\json2.min.js" />
+    <Content Include="assets\js\knockout-3.3.0.js" />
+    <Content Include="assets\js\moment.min.js" />
+    <Content Include="assets\js\select2.min.js" />
+    <Content Include="assets\js\spinner.min.js" />
+    <Content Include="assets\js\twitter-bootstrap-hover-dropdown.min.js" />
+    <Content Include="assets\js\view.js" />
+    <Content Include="assets\plugins\excanvas.min.js" />
+    <Content Include="assets\plugins\respond.min.js" />
+    <Content Include="assets\scripts\app.js" />
+    <Content Include="assets\scripts\httpmessage\httpapp.js" />
+    <Content Include="assets\scripts\httpmessage\httpconfig.js" />
+    <Content Include="assets\scripts\httpmessage\httpmessage.js" />
+    <Content Include="assets\scripts\httpmessage\httpmessagelog.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="assets\css\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="File\interface.html" />
+    <Content Include="File\template.html" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="assets\css\fonts\fontawesome-webfont.woff2" />
+    <None Include="Properties\PublishProfiles\dev.pubxml" />
+    <None Include="Properties\PublishProfiles\pub.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\highlight.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\HttpMessage\UpdateValid.cshtml" />
+    <Content Include="Views\HttpMessage\RunValue.cshtml" />
+    <Content Include="Views\Notify\Add.cshtml" />
+    <Content Include="Views\Notify\Update.cshtml" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutV2.cshtml" />
+    <Content Include="Views\HttpMessage\Add.cshtml" />
+    <Content Include="Views\HttpMessage\AddHttpConfig.cshtml" />
+    <Content Include="Views\HttpMessage\AddHttpWatch.cshtml" />
+    <Content Include="Views\HttpMessage\HttpConfigList.cshtml" />
+    <Content Include="Views\HttpMessage\HttpConfigListView.cshtml" />
+    <Content Include="Views\HttpMessage\HttpMessageErrorLogList.cshtml" />
+    <Content Include="Views\HttpMessage\HttpMessageErrorLogListView.cshtml" />
+    <Content Include="Views\HttpMessage\HttpMessageListView.cshtml" />
+    <Content Include="Views\HttpMessage\HttpMessageLogList.cshtml" />
+    <Content Include="Views\HttpMessage\HttpMessageLogListView.cshtml" />
+    <Content Include="Views\HttpMessage\HttpWatchList.cshtml" />
+    <Content Include="Views\HttpMessage\HttpWatchListView.cshtml" />
+    <Content Include="Views\HttpMessage\HttpWatchView.cshtml" />
+    <Content Include="Views\HttpMessage\Index.cshtml" />
+    <Content Include="Views\HttpMessage\Invoke.cshtml" />
+    <Content Include="Views\HttpMessage\Update.cshtml" />
+    <Content Include="Views\HttpMessage\UpdateHttpConfig.cshtml" />
+    <Content Include="Views\HttpMessage\UpdateHttpWatch.cshtml" />
+    <Content Include="Views\HttpMessage\HttpAppList.cshtml" />
+    <Content Include="Views\HttpMessage\AddHttpApp.cshtml" />
+    <Content Include="Views\HttpMessage\HttpAppListView.cshtml" />
+    <Content Include="Views\HttpMessage\UpdateHttpApp.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="assets\css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\css\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\css\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBLL\SmartBLL.csproj">
+      <Project>{f2ee0174-eea5-41fb-899a-9d159e34945e}</Project>
+      <Name>SmartBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartHttpEntity\SmartHttpEntity.csproj">
+      <Project>{1a78a99e-eaf4-48f3-997e-2ca86f3622e8}</Project>
+      <Name>SmartHttpEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CEntity">
+      <HintPath>..\..\Lib\CEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\..\Lib\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperHelper">
+      <HintPath>..\..\Lib\DapperHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\..\Lib\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBaseEntity">
+      <HintPath>..\..\Lib\SmartBaseEntity.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartDbHelper">
+      <HintPath>..\..\Lib\SmartDbHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartHelper">
+      <HintPath>..\..\Lib\SmartHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartSDKHelper">
+      <HintPath>..\..\Lib\SmartSDKHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Lib\CEntity.dll" />
+    <Analyzer Include="..\..\Lib\Dapper.dll" />
+    <Analyzer Include="..\..\Lib\DapperHelper.dll" />
+    <Analyzer Include="..\..\Lib\SmartBaseEntity.dll" />
+    <Analyzer Include="..\..\Lib\SmartHelper.dll" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>7158</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:7158/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,252 @@
+﻿@{
+    ViewBag.Title = "接口配置";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    var isEdit = true;
+    var isWatchList = true;
+    var isLogList = true;
+    var apps = ViewBag.apps as List<SmartHttpEntity.HttpApp>;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box light-grey ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-search"></i>@ViewBag.Title
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form id="form1" role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        应用名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="AppID" class="form-control select2me" name="AppID" onchange="AppIDChange()">
+                                            <option value="" selected="selected">全部</option>
+                                            @if (apps != null)
+                                            {
+                                                foreach (var app in apps)
+                                                {
+                                                    <option value="@app.AppID">[@app.AppID]@app.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        接口名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="Method" id="Method" type="text" placeholder="接口名称" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        接口模块：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="Moudle" class="form-control select2me" name="Moudle" onchange="MoudleChange()">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        子模块：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="SubMoudle" class="form-control select2me" name="SubMoudle">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        接口通知：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="IsNotify" class="form-control select2me" name="IsNotify">
+                                            <option value="" selected="selected">请选择</option>
+                                            <option value="true">通知</option>
+                                            <option value="false">不通知</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        接口状态：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="Status" class="form-control select2me" name="Status">
+                                            <option value="" selected="selected">请选择</option>
+                                            <option value="1">启用</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn green" type="button" id="btnSearch" onclick="searchData()"><i class="icon-search"></i>查 询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+                    @if (isEdit)
+                    {
+                        <a href="@Url.Action("Add", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-plus"></i>新增</a>
+                        <a href="@Url.Action("HttpAppList", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-plus"></i>应用列表</a>
+                        <a href="@Url.Action("HttpConfigList", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-plus"></i>配置列表</a>
+                    }
+                    @*@if (isWatchList)
+                        {
+                            <a href="@Url.Action("HttpWatchList", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-plus"></i>接口联系人</a>
+                        }*@
+                    @if (isLogList)
+                    {
+                        <a href="@Url.Action("HttpMessageLogList", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-book"></i>日志</a>
+                    }
+                    <a href="javascript:void(0);" class="btn green btn-sm" onclick="searchData();"><i class="fa fa-refresh"></i>刷新</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="formPayList" class="form-horizontal">
+                    <div class="form-body" id="divList">
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="/assets/scripts/httpmessage/httpmessage.js"></script>
+    <script type="text/javascript">
+        function DeleteHttpMessage(id) {
+            if (confirm("确定要删除数据吗？")) {
+                $.ajax({
+                    type: "POST",
+                    data: "",
+                    traditional: true,
+                    url: "/HttpMessage/DeleteHttpMessage/" + id,
+                    success: function (res) {
+                        if (res != null && res != "") {
+                            searchData();
+                        }
+                    },
+                    error: function (res) {
+
+                    }
+                });
+            }
+        }
+
+
+        function AppIDChange() {
+            if ($("#AppID").val() != "0") {
+                $.ajax({
+                    type: "POST",
+                    data: { appID: $("#AppID").val() },
+                    traditional: true,
+                    url: "/HttpMessage/GetMoudles",
+                    success: function (res) {
+                        if (res.result == false) {
+                            App.showTips(res.err, 2500);
+                        }
+                        else {
+                            $("#Moudle option").remove();
+                            $("#Moudle").append("<option value=''>请选择</option>");
+                            $("#Moudle").select2("val", "");
+                            var moudles = res.moudles;
+                            for (var i = 0; i < moudles.length; i++) {
+                                $("#Moudle").append("<option value='" + moudles[i] + "'>" + moudles[i] + "</option>");
+                            }
+                        }
+                    },
+                    error: function (res) {
+                    }
+                });
+            }
+        }
+
+        function MoudleChange() {
+            if ($("#Moudle").val() != "") {
+                $("#SubMoudle option").remove();
+                $.ajax({
+                    type: "POST",
+                    data: { appID: $("#AppID").val(), moudle: $("#Moudle").val() },
+                    traditional: true,
+                    url: "/HttpMessage/GetSubMoudles",
+                    success: function (res) {
+                        if (res.result == false) {
+                            App.showTips(res.err, 2500);
+                        }
+                        else {
+                            $("#SubMoudle option").remove();
+                            $("#SubMoudle").append("<option value=''>请选择</option>");
+                            $("#SubMoudle").select2("val", "");
+                            var moudles = res.moudles;
+                            for (var i = 0; i < moudles.length; i++) {
+                                $("#SubMoudle").append("<option value='" + moudles[i] + "'>" + moudles[i] + "</option>");
+                            }
+                        }
+                    },
+                    error: function (res) {
+                    }
+                });
+            }            
+        }
+
+
+
+        $(document).ready(function () {
+            searchData();
+        });
+    </script>
+}

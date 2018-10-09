@@ -1,0 +1,121 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>接口定义文档</title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: 12px;
+        }
+
+        .interface-title {
+            height: 34px;
+            line-height: 34px;
+            background: #f6faff;
+            border: 1px solid #becfdd;
+            color: #333;
+            padding-left: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .explain {
+            width: 950px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+            .explain p {
+                height: 25px;
+                line-height: 25px;
+                font-weight: bolder;
+                font-size: 16px;
+            }
+
+        .data {
+            width: 950px;
+            border: 1px solid black;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            margin: 20px auto;
+        }
+
+            .data .tit {
+                width: 100%;
+                height: 50px;
+            }
+
+                .data .tit p {
+                    font-weight: bolder;
+                    margin-left: 10px;
+                }
+
+            .data dl dt {
+                width: 100%;
+                height: 25px;
+                line-height: 25px;
+                text-indent: 20px;
+                background-color: #f0f2f9;
+            }
+
+            .data dl dd {
+                height: 25px;
+                line-height: 25px;
+                text-indent: 50px;
+                background-position: 20px center;
+                background-repeat: no-repeat;
+            }
+
+                .data dl dd span {
+                    float: right;
+                    margin-right: 10px;
+                }
+
+        .data_1 .tit {
+            background-image: linear-gradient(to right,#e6f0db,#fff);
+        }
+
+        .data_2 .tit {
+            background-image: linear-gradient(to right,#d4dcef,#fff);
+        }
+
+        .data_1 dl dd {
+            background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAAOAA0DASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMG/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAdSqaaf/xAAYEAEBAQEBAAAAAAAAAAAAAAADAQIEEv/aAAgBAQABBQJG3V510mV5vdIoU//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMBAT8Bf//EABYRAQEBAAAAAAAAAAAAAAAAABEAAf/aAAgBAgEBPwHQv//EABwQAQACAgMBAAAAAAAAAAAAAAECEQASAyFBE//aAAgBAQAGPwKcdvnGLW1XbktypRay4cjBUX26x7Ve1fc//8QAHBABAAICAwEAAAAAAAAAAAAAAQARITFBUWFx/9oACAEBAAE/ITDRqNANebPsDRs9c4G/Nx34gWSKx3ggEILS1T//2gAMAwEAAgADAAAAEFv/xAAWEQEBAQAAAAAAAAAAAAAAAAARAAH/2gAIAQMBAT8Q0L//xAAWEQEBAQAAAAAAAAAAAAAAAAAxAAH/2gAIAQIBAT8Q0Tf/xAAZEAEBAQEBAQAAAAAAAAAAAAABESExAIH/2gAIAQEAAT8Q6UebcEcGUlTBH3YOhBmw7QcanL410pBQKuYqTDbk4VtnEK/AIQAIHv/Z);
+        }
+
+        .data_2 dl dd {
+            background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAAQABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFBv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdWmUz//xAAZEAEBAAMBAAAAAAAAAAAAAAAEAwABAhP/2gAIAQEAAQUCejoxhM9MuOqmRJA+/wD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/AX//xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/AX//xAAbEAACAwEBAQAAAAAAAAAAAAABAgADETEjJP/aAAgBAQAGPwIuneRKzYbLGGk5mT1b514BCakzZ//EABsQAQACAgMAAAAAAAAAAAAAAAEAESExQWGh/9oACAEBAAE/ISoLoF4gt9NYOsNIGR24aF7Nq+z/2gAMAwEAAgADAAAAEOP/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/EH//xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAECAQE/EH//xAAdEAEAAgICAwAAAAAAAAAAAAABESEAUTFBYYGR/9oACAEBAAE/EFaCkkb3lZjDRgqB998IYFcRJLix1c3qjlQkDQrRqUoeM//Z);
+        }
+    </style>
+</head>
+<body style="position:relative;">
+    <div class="interface">
+        <div class="interface-title">接口UML图</div>
+        <div class="explain">
+            <p>1.约定当前登录用户的信息不出现在接口中</p>
+            <p>2.约定[]代表数组类型</p>
+            <p>3.约定类型后的?代表对象可为空</p>
+        </div>
+        <div>
+            <div class="data data_1">
+                <div class="tit">
+                    <p>Interface</p>
+                    <p>接口</p>
+                </div>
+                <dl>
+                    <dt>方法</dt>
+                    <dd>@Interface<span>@MethodDesc</span></dd>
+                </dl>
+            </div>
+        </div>
+        @Request
+        @Response
+    </div>
+</body>
+</html>

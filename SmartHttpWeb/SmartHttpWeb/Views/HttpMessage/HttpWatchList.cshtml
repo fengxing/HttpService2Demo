@@ -1,0 +1,118 @@
+﻿@using SmartHttpWeb;
+@{
+    ViewBag.Title = "异常监控（联系人）列表";
+    List<SmartHttpWeb.Entity.Malls> mallList = ViewBag.mallList;
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/HttpWatchList";
+    var isEdit = true;
+}
+
+<!-- BEGIN PAGE HEADER-->
+
+<!-- END PAGE HEADER-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box light-grey ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-search"></i>@ViewBag.Title
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form id="form1" role="form" class="form-horizontal">
+                    <div class="form-body">
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        应用名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="MallID" class="form-control select2me" name="MallID">
+                                            <option value="" selected="selected">请选择</option>
+                                            @if (mallList != null && mallList.Count != 0)
+                                            {
+                                                foreach (var mall in mallList)
+                                                {
+                                                    <option value="@mall.ID">[@mall.ID]@mall.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn green" type="button" id="btnSearch" onclick="searchData()"><i class="icon-search"></i>查 询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i></div>
+                <div class="actions">
+                    @if (isEdit)
+                    {
+                        <a href="@Url.Action("AddHttpWatch", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-plus"></i>新增</a>
+                    }
+                    <a href="javascript:void(0);" class="btn green btn-sm" onclick="searchData();"><i class="fa fa-refresh"></i>刷新</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="formPayList" class="form-horizontal">
+                    <div class="form-body" id="divList">
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function searchData(pageIndex) {
+            pageIndex = pageIndex || 1;
+            var rqData = $("#form1").ToMVCData();
+            rqData.PageIndex = pageIndex;
+            var pageContent = $('#divList');
+            App.blockUI(pageContent, false);
+            $.ajax({
+                type: "POST",
+                data: rqData,
+                traditional: true,
+                url: "/HttpMessage/HttpWatchListView",
+                success: function (res) {
+                    App.unblockUI(pageContent);
+                    if (res != null && res != "") {
+                        $("#divList").html(res);
+                    }
+                    fixedTableColumn();
+                },
+                error: function (res) {
+                    App.unblockUI(pageContent);
+                }
+            });
+            return false;
+        }
+
+        jQuery(document).ready(function () {
+            searchData();
+        });
+    </script>
+}

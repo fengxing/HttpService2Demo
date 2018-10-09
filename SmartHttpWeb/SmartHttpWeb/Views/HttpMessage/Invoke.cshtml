@@ -1,0 +1,432 @@
+﻿@model  SmartHttpEntity.HttpMessage
+@{
+    ViewBag.Title = "模拟调用";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+    var tt = new List<string>() { "Random", "GuidToStringN", "Guid" };
+    var interfaceArgs = Model.GetInterfaceArgs().Where(r => r.Name.Contains("httpconfig-") == false && tt.Contains(r.Name) == false && string.IsNullOrWhiteSpace(r.Name) == false).ToList();
+    var account = System.Configuration.ConfigurationManager.AppSettings["Account"];
+    var i = 0;
+    var response = Model.GetDefine();
+    var isDisAllowCommands = (response == null) || (response != null && response.IsDisAllowCommands);
+    var argExists = ViewBag.args as List<SmartHttpEntity.HttpInvokeArg>;
+    string[] invokes = ViewBag.invokes;
+}
+
+
+
+<div class="row">
+    <div class="col-md-11">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form" id="form1" class="form-horizontal">
+                    <input name="ID" id="ID" type="hidden" value="@Model.ID">
+                    <input name="AppID" id="AppID" type="hidden" value="@Model.AppID">
+                    <input name="Method" id="Method" type="hidden" value="@Model.Method">
+                    <input name="Version" id="Version" type="hidden" value="@Model.Version">
+                    <input name="Token" id="Token" type="hidden" value="">
+                    <input name="UID" id="UID" type="hidden" value="">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">接口</label>
+                                    <div class="col-md-11">
+                                        @Model.Method （ @Model.Description )  (@Model.AppName) (AppID: @Model.AppID)
+                                        @if (!string.IsNullOrWhiteSpace(Model.Url))
+                                        {
+                                            <button type="button" class="btn green" onclick="Invoke()">调 用</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">MP编号</label>
+                                    <div class="col-md-11">
+                                        <input name="PageID" id="PageID" type="text" placeholder="Erp MockPlus设计页面编号" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">前端功能</label>
+                                    <div class="col-md-11">
+                                        <button type="button" class="btn green" onclick="GetRequestArg()">获取接口请求定义</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        @if (Model.IsNeedLogin)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">帐号密码</label>
+                                        <div class="col-md-11">
+                                            @if (account != null)
+                                            {
+                                                <input name="Login" id="Login" type="text" placeholder="请输入帐号密码用逗号分割" value="@account.ToString()" class="form-control" onclick="return changetoken()">
+                                            }
+                                            else
+                                            {
+                                                <input name="Login" id="Login" type="text" placeholder="请输入帐号密码用逗号分割" value="" class="form-control" onclick="return changetoken()">
+                                            }
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" id="gettoken" class="btn default green" onclick="GetToken()" style="display:none;">登录</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (isDisAllowCommands == false)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">事务代码</label>
+                                        <div class="col-md-6">
+                                            <input name="HashCode" id="HashCode" type="text" placeholder="" value="" class="form-control">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <button onclick="return GetHashCode()">获取随机事务代码</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">异步调用时间</label>
+                                    <div class="col-md-11">
+                                        <input name="SenderTime" id="SenderTime" type="text" placeholder="异步发送时间(空即当前时间)" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (interfaceArgs.Count > 0)
+                        {
+                            var t = false;
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">参数</label>
+                                        <div class="col-md-11">
+                                            <table class="table table-striped table-bordered table-hover" data-bind="visible:WSInterfaceArgs().length>0">
+                                                <tr>
+                                                    <td>参数序号</td>
+                                                    <td>名称</td>
+                                                    <td>值</td>
+                                                    <td>类型</td>
+                                                </tr>
+                                                <tbody data-bind="foreach: { data: WSInterfaceArgs, as: 'WSInterfaceArg' }">
+                                                    @foreach (var interfaceArg in interfaceArgs)
+                                                    {
+                                                        var a = argExists.FirstOrDefault(r => r.Name == interfaceArg.Description);
+                                                        <tr>
+                                                            <td>
+                                                                @i
+                                                            </td>
+                                                            <td>
+                                                                <input name="NameArgs" readonly="readonly" type="text" placeholder="" class="form-control" value="@interfaceArg.Name">
+                                                            </td>
+                                                            <td>
+                                                                @if (invokes != null && invokes.Count() > 0)
+                                                                {
+                                                                    <input name="ValueArgs" type="text" placeholder="" class="form-control" value="@invokes[i]">
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (a != null)
+                                                                    {
+                                                                        <input name="ValueArgs" type="text" placeholder="" class="form-control" value="@a.Value">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input name="ValueArgs" type="text" placeholder="" class="form-control" value="">
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @interfaceArg.Type
+                                                                @if (!interfaceArg.IsAllowNull)
+                                                                {
+                                                                    <span style="color:red;">*</span>
+                                                                }
+                                                                @if (response != null)
+                                                                {
+                                                                    var de = response.Requests.FirstOrDefault(r => r.Name == interfaceArg.Description);
+                                                                    if (de != null && de.ValueDescriptions != null)
+                                                                    {
+                                                                        foreach (var item in de.ValueDescriptions)
+                                                                        {
+                                                                            <br />
+                                                                            @item.Replace("maxlength:", "最大长度为:")
+                                                                        }
+                                                                    }
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        i = i + 1;
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">请求地址</label>
+                                    <div class="col-md-11">
+                                        <input name="Url" id="Url" readonly="readonly" type="text" placeholder="" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">请求是否成功</label>
+                                    <div class="col-md-11">
+                                        <input name="IsSuccess" id="IsSuccess" readonly="readonly" type="text" placeholder="" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="ExceptionMsg" style="display:none;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">异常提示</label>
+                                    <div class="col-md-11">
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <textarea name="Exception" id="Exception" placeholder="" readonly="readonly"
+                                                                  class="form-control" style="margin: 0px 27.6420440673828px 0px 0px; width: 900px; height: 250px;"></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">返回<span class="required">*</span></label>
+                                    <div class="col-md-11">
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>请求</td>
+                                                    <td>返回</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <textarea name="Request" id="Request" placeholder="" readonly="readonly"
+                                                                  class="form-control" style="margin: 0px 28px 0px 0px; width: 500px; height: 600px;"></textarea>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="Response" id="Response" placeholder=""
+                                                                  class="form-control" style="margin: 0px 28px 0px 0px; width: 500px; height: 600px;"></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        function Invoke() {
+            var postData = $("#form1").ToMVCData();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/Invoke",
+                success: function (res) {
+                    $("#IsSuccess").val(res.result ? "成功" : "失败");
+                    $("#Exception").val(res.err);
+                    $("#Request").val(res.request);
+                    $("#Response").val(res.response);
+                    $("#Url").val(res.url);
+                    if (res.result == false) {
+                        $("#ExceptionMsg").show();
+                    }
+                    else {
+                        $("#ExceptionMsg").hide();
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+
+        function GetRequestArg() {
+            var postData = $("#form1").ToMVCData();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/GetRequestArg",
+                success: function (res) {
+                    $("#Response").val(res.response);
+                },
+                error: function (res) {
+                }
+            });
+        }
+        function InvokeData(btn) {
+            var postData = $("#form1").ToMVCData();
+            postData.encrypt = $(btn).attr("encrypt");
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/InvokeData",
+                success: function (res) {
+                    if (res.result == false) {
+                        alert(res.err);
+                    }
+                    else {
+                        var data = res.data;
+                        var nextarg = res.nextarg;
+                        $(btn).parent().parent().find("input[name='ValueArgs']")[0].value = data;
+                        if (nextarg == "") {
+                            $(btn).remove();
+                        }
+                        else {
+                            if (nextarg == "display") {
+                                $(btn).parent().parent().find("input[name='ValueArgs']")[0].value = "";
+                                $("#Response").val(data);
+                                $(btn).remove();
+                            }
+                            else {
+                                $(btn).attr("encrypt", nextarg);
+                            }
+                        }
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+
+
+
+        function GetToken() {
+            var postData = $("#form1").ToMVCData();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/GetToken",
+                success: function (res) {
+                    if (res.result == false) {
+                        alert(res.err);
+                    }
+                    else {
+                        var data = res.data.Data;
+                        var t = JSON.parse(data);
+                        $("#Token").val(t.Token);
+                        $("#UID").val(t.UID);
+                        alert('登录成功');
+                        $("#gettoken").hide();
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+
+        function changetoken() {
+            $("#gettoken").show();
+            return false;
+        }
+
+        function GetHashCode() {
+            document.getElementById('HashCode').value = uuid();
+            return false;
+        }
+
+        function uuid() {
+            var s = [];
+            var hexDigits = "0123456789ABCDEF";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+            s[8] = s[13] = s[18] = s[23] = "-";
+            var uuid = s.join("");
+            return uuid;
+        }
+
+        $(document).ready(function () {
+            var a = '@Model.IsNeedLogin';
+            if (a == 'True') {
+                var postData = $("#form1").ToMVCData();
+                $.ajax({
+                    type: "POST",
+                    data: postData,
+                    traditional: true,
+                    url: "/HttpMessage/GetToken",
+                    success: function (res) {
+                        if (res.result == false) {
+                            alert(res.err);
+                        }
+                        else {
+                            var data = res.data.Data;
+                            var t = JSON.parse(data);
+                            $("#Token").val(t.Token);
+                            $("#UID").val(t.UID);
+                            $("#gettoken").hide();
+                        }
+                    },
+                    error: function (res) {
+                    }
+                });
+            }
+        });
+    </script>
+}

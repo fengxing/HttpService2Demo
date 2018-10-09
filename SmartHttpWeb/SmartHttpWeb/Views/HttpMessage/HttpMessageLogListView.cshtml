@@ -1,0 +1,357 @@
+﻿@model List<SmartHttpEntity.HttpLogInterfaceCall>
+@using SmartHttpWeb;
+@{
+    Layout = null;
+}
+<div class="tableinner">
+    <table class="table table-striped table-bordered table-advance table-hover fixed_table">
+        @if (Model.Count > 0)
+        {
+
+            <thead>
+                <tr>
+                    <th>是否成功</th>
+                    <th>应用ID</th>
+                    <th>方法</th>
+                    <th>耗时</th>
+                    <th>异常</th>
+                    <th>请求时间</th>
+                    <th>日志时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entity in Model)
+                {
+                    var request = "json";
+                    var response = "json";
+                    <tr>
+                        <td class="tac itemTd1">
+                            @if (entity.ExecuteID != Guid.Empty)
+                            {
+                                if (entity.IsSuccess)
+                                {
+                                    @:事务成功
+                                }
+                                else if (entity.StatusCode == 200)
+                                {
+                                    @:事务失败,<span style="color:red;">单步成功</span>
+                                }
+                                else
+                                {
+                                    @:事务失败
+                                }
+                            }
+                            else
+                            {
+                                if (entity.IsSuccess)
+                                {
+                                    @:成功
+                                }
+                                else
+                                {
+                                    <span style="color:red;">失败</span>
+                                }
+                            }
+                            @entity.StatusCode
+                        </td>
+                        <td class="tac itemTd2">
+                            @entity.AppID
+                        </td>
+                        <td class="tac itemTd3">
+                            @entity.Method
+                        </td>
+                        <td class="tac itemTd4">
+                            @entity.Mills
+                        </td>
+                        <td class="tac itemTd5">
+                            @if (entity.IsSuccess == false)
+                            {
+                                <p style="width:500px;overflow:hidden">
+                                    @entity.Response
+                                </p>
+                            }
+                        </td>
+                        <td class="tac">
+                            @entity.SenderTime
+                        </td>
+                        <td class="tac itemTd6">@entity.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.fff")</td>
+                        <td>
+                            <div class="isGetUrl" style="display:none;">
+                                @entity.Url [@entity.Version][@entity.Channel]
+                                @if (entity.IsAynsc)
+                                {
+                                    <span style="color:red;">
+                                        [异步 @entity.SenderTime]
+                                    </span>
+                                }
+                                else
+                                {
+                                    @:[同步 @entity.SenderTime]
+            }
+                            </div>
+                            <div class="popShowPre msgDiv1" style="display:none;">
+                                <pre>
+									@if (entity.HttpMethod.Contains("HttpGet"))
+									{
+										@entity.Url									
+                                    }
+									else
+									{
+                                        if (request=="json")
+                                        {                                            
+                                            @entity.Request.FormatJson()
+                                        }
+                                        else
+                                        {
+                                            @entity.Request
+                                        }
+									}
+								</pre>
+                            </div>
+                            <div class="popShowPre msgDiv2" style="display:none;">
+                                <pre>
+                                  @if (request=="json")
+                                  {
+									  @entity.Response.FormatJson()
+                                  }
+                                  else
+                                  {
+                                      @entity.Response
+                                  }
+								</pre>
+                            </div>
+                            <div class="popShowPre msgDiv5" style="display:none;">
+                                @if (entity.Method == "NotifyJob")
+                                {
+                                    @:<pre>
+                                          var j = Newtonsoft.Json.Linq.JObject.Parse(entity.Request);
+                                          var request1 = j["Request"].ToString();
+                                          var response1 = j["Response"].ToString();
+                                          var result = "";
+                                          if (!string.IsNullOrWhiteSpace(request1))
+                                          {
+                                              request1 = System.Text.Encoding.Unicode.GetString(Convert.FromBase64String(request1));
+                                              j["Request"] = request1;
+                                          }
+                                          if (!string.IsNullOrWhiteSpace(response1))
+                                          {
+                                              response1 = System.Text.Encoding.Unicode.GetString(Convert.FromBase64String(response1));
+                                              j["Response"] = response1;
+                                          }
+                                          result = Newtonsoft.Json.JsonConvert.SerializeObject(j);
+                                          @result.FormatJson()
+								    @:</pre>
+                                }
+                            </div>
+                            <div class="msgDiv3" style="display:none;">
+                                @entity.RequestArgs
+                            </div>
+                            <div class="msgDiv4" style="display:none;">
+                                @if (entity.ExecuteID != Guid.Empty)
+                                {
+                                    <span style="color:red;">
+                                        事务代码:@entity.ExecuteID
+                                    </span>
+                                }
+                                @if (entity.Retry == true)
+                                {
+                                    <span style="color:red;">强制访问</span><br />
+                                }
+                                @if (entity.IsPreLoad == true)
+                                {
+                                    <span style="color:red;">预加载</span><br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(entity.Browser))
+                                {
+                                    <span>浏览器:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@entity.Browser</span><br />
+                                }
+                                <span>计算机名称:@entity.ComputerName</span><br />
+                                <span>客户端IP:&nbsp;&nbsp;@entity.IP</span><br />
+                                <span>服务端IP:&nbsp;&nbsp;@entity.CIP</span><br />
+                                @if (!string.IsNullOrWhiteSpace(entity.UID))
+                                {
+                                    <span>UID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@entity.UID</span><br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(entity.Token))
+                                {
+                                    <span>token:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@entity.Token</span><br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(entity.Other))
+                                {
+                                    <span>其他数据:&nbsp;&nbsp;@entity.Other</span><br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(entity.RequestID))
+                                {
+                                    <span>RequestID:&nbsp;&nbsp;@entity.RequestID</span><br />
+                                }
+                            </div>
+                            <button type="button" class="btn green btn_request" request="@request" response="@response">查看详情</button>
+                            <a href="/HttpMessage/Invoke?logid=@entity.ID" class="btn green btn_request" target="_blank">调用</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                <tr>
+                    <td style="text-align: center">暂无数据....</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+<div id="divSetVal" class="modal fade">
+    <div class="modal-dialog modal-wide">
+        <div class="modal-content" style="width:100%">
+            <div>
+                @*<button type="button" class="btn green btn_save">保存</button>*@
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">详细信息</h4>
+            </div>
+            <div class="modal-body" id="jietu">
+                <h4>接口地址[版本号][渠道]: <span class="getUrl"></span></h4>
+                <div class="baseInfo">
+
+                    <div class="row">
+                        <div class="col-md-4"><strong>是否成功：</strong><span class="item1"></span></div>
+                        <div class="col-md-4"><strong>应用ID：</strong><span class="item2"></span></div>
+                        <div class="col-md-4"><strong>方法(耗时)：</strong><span class="item3"></span></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4"><strong>缓存：</strong><span class="item4"></span></div>
+                        <div class="col-md-4"><strong>异常：</strong><span class="item5" style="color:red;"></span></div>
+                        <div class="col-md-4"><strong>日志时间：</strong><span class="item6"></span></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4"><strong>请求参数：</strong><span class="item7"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong> 其他参数：</strong>
+                            <p class="item8" style="width:100%;display:block;word-break: break-all;word-wrap: break-word;width:100%;display:block;word-break: break-all;word-wrap: break-word;"></p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="msgWrap">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="msgInfo msg1">
+                                <h4>请求详情</h4>
+                                <pre>
+                                <code class="json">
+                                
+                                </code>
+                                </pre>
+                            </div>
+
+                            <div class="msgInfo msg3" id="ddd" style="display:none;">
+                                <h4>解密详情</h4>
+                                <pre>
+                                <code class="json">
+                                </code>
+                               </pre>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="msgInfo msg2">
+                                <h4>返回详情</h4>
+                                <pre>                                    
+                                <code class="json">
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .modal-body h4 {
+        border-bottom: 1px solid #ddd;
+        padding: 5px 0;
+    }
+
+        .modal-body h4 span {
+            display: block;
+            padding: 10px 0;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+    .modal-body .baseInfo > div {
+        margin-top: 10px;
+    }
+
+    .msgInfo {
+        margin-top: 20px;
+    }
+
+        .msgInfo h4 {
+            margin: 0;
+            border: 0;
+        }
+</style>
+<script type="text/javascript">
+    $('.btn_request').click(function () {
+        $('#ddd').hide();
+        var request = $(this).attr("request");
+        var response = $(this).attr("response");
+        var tr = $(this).parents('tr');
+        $('.item1').html(tr.find('.itemTd1').html());
+        $('.item2').html(tr.find('.itemTd2').html());
+        $('.item3').html(tr.find('.itemTd3').html());
+        $('.item4').html(tr.find('.itemTd4').html());
+        $('.item5').html(tr.find('.itemTd5').html());
+        $('.item6').html(tr.find('.itemTd6').html());
+        $('.item7').html(tr.find('.msgDiv3').html());
+        $('.item8').html(tr.find('.msgDiv4').html());
+        $('.getUrl').html(tr.find('.isGetUrl').html());
+        $('.msg1 pre code').html(tr.find('.msgDiv1 pre').html());
+        $('.msg1 pre code').toggleClass(request)
+        $('.msg2 pre code').html(tr.find('.msgDiv2 pre').html());
+        $('.msg2 pre code').toggleClass(response)
+        console.log(tr.find('.itemTd3').text());
+        if (tr.find('.itemTd3').text().trim() == "NotifyJob") {
+            $('.msg3 pre code').html(tr.find('.msgDiv5 pre').html());
+            $('.msg3 pre code').toggleClass(request);
+            $('#ddd').show();
+        }
+        $('#divSetVal').modal('show');
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+
+    //$('.btn_save').click(function () {
+    //    event.preventDefault();
+    //    html2canvas($("#jietu"), {
+    //        allowTaint: true,
+    //        taintTest: false,
+    //        onrendered: function (canvas) {
+    //            canvas.id = "mycanvas";
+    //            var dataUrl = canvas.toDataURL();
+    //            var newImg = document.createElement("img");
+    //            newImg.src = dataUrl;
+    //            //document.body.appendChild(newImg);
+    //            window.open(dataUrl);
+    //        }
+    //    });
+    //});
+</script>
+@Html.Raw(ViewBag.pager)

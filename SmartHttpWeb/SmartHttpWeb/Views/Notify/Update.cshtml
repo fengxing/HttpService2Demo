@@ -1,0 +1,153 @@
+﻿@model SmartHttpEntity.HttpNotify
+@{
+    ViewBag.Title = "通知人编辑";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+}
+
+<script src="~/assets/js/knockout-3.3.0.js"></script>
+<div class="row">
+    <div class="col-md-11">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form" id="form1" class="form-horizontal">
+                    <input name="ID" id="ID" type="hidden" value="@Model.ID">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">通知应用号：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="AppIDs" id="AppIDs" type="text" placeholder="通知应用号" value="@Model.AppIDs" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">通知消息：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Message" id="Message" type="text" placeholder="通知消息" value="@Model.Message" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">消息模板：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <textarea  name="MessagePaths" id="MessagePaths"  style="width:500px;height:200px;">@Model.MessagePaths</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">通知人：</label>
+                                    <div class="col-md-9">
+                                        <a class="btn btn-success" onclick="AddNotifyUser('','')"><i class="icon-plus icon-white"></i>新增</a>
+                                        <table class="table table-striped table-bordered table-hover" data-bind="visible:NotifyUsers().length>0" style="display:none;">
+                                            <tr>
+                                                <td>通知人</td>
+                                                <td>通知人DingUserID</td>
+                                            </tr>
+                                            <tbody data-bind="foreach: { data: NotifyUsers, as: 'NotifyUser' }">
+                                                <tr>
+                                                    <td>
+                                                        <input name="Names" type="text" placeholder="" class="form-control" data-bind="value:NotifyUser.Name">
+                                                    </td>
+                                                    <td>
+                                                        <input name="DingUserIDs" type="text" placeholder="" class="form-control" data-bind="value:NotifyUser.DingUserID">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="button" class="btn green" id="btnSave" onclick="Update()">保 存</button>
+                                        <button type="reset" class="btn default">取 消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+         var viewModel = function () {
+            var self = this;
+            var moudles = @Html.Raw(Model.NotifyUsers);
+            var args=[];
+            for (var i = 0; i < moudles.length; i++) {
+                args.push({ Name: moudles[i].Name, DingUserID: moudles[i].DingUserID});
+            }
+            self.NotifyUsers= ko.observableArray(args);
+            self.AddNotifyUser = function (name, dingUserID) {
+                self.NotifyUsers.push({ Name: name, DingUserID: dingUserID });
+            }
+        };
+        ko.applyBindings(viewModel);
+
+
+
+
+        function Update() {
+            var postData = $("#form1").ToMVCData();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/Notify/Update",
+                success: function (res) {
+                    if (res.result == false) {
+                        App.showTips(res.err, 2500);
+                    }
+                    else {
+                        App.showTips("保存成功", 2500)
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

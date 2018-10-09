@@ -1,0 +1,89 @@
+/* here you can put your own css to customize and override the theme */
+.form-section { margin-left: 10px; }
+
+/*每日精选列表页*/
+.picks_container { display: inline-block; width: 320px; border: 1px #35aa47 solid; margin: 5px 8px; vertical-align: top; position: relative; }
+
+.picks_container .first { margin: 10px; position: relative; }
+
+.picks_container .photo { width: 300px; height: 160px; overflow: hidden; }
+
+.picks_container .photo img { width: 300px; }
+
+.picks_container .first h4 { width: 100%; height: 30px; bottom: 0px; position: absolute; font-size: 14px; line-height: 18px; padding: 5px; background-color: black; opacity: 0.4; color: #ffffff; margin-bottom: 0px; }
+
+.picks_container .item_mask { background-color: lightgray; opacity: 0.8; width: 100%; height: 100%; top: 0px; left: 0px; text-align: center; vertical-align: middle; position: absolute; line-height: 160px; display: none; }
+
+.picks_container .item_mask a { overflow: hidden; vertical-align: middle; }
+
+
+.picks_container .item_add { border-top: 1px solid #35aa47; padding: 10px; width: 100%; height: 100px; text-align: center; line-height: 72px; }
+
+.picks_container .item_add a { display: block; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: 3px dotted #b8b8b8; height: 72px; }
+
+.picks_container .item_container { border-top: 1px solid #35aa47; padding: 10px; width: 100%; height: 100px; position: relative; }
+
+.picks_container .item_container .item_mask { line-height: 90px; }
+
+.picks_container h4 { padding: 5px; margin-top: 0px; }
+
+.picks_container .img_right { float: right; width: 80px; height: 80px; overflow: hidden; }
+
+.picks_container .img_right img { width: 80px; }
+
+/* 微信 管理*/
+.editList li { }
+.editList li:first-child .editModel .photo{  width: 300px; height: 160px; overflow: hidden; }
+.editList li:first-child .editModel h4{ width: 100%; height: 30px; bottom: 0px; position: absolute; font-size: 14px; line-height: 18px; padding: 5px; background-color: black; opacity: 0.4; color: #ffffff; margin-bottom: 0px; }
+.editModel { overflow: hidden; zoom: 1; }
+.editModel .photo { float: right; width: 78px; height: 78px; overflow: hidden; }
+.editModel .photo img { width: 100%; height: 100%; }
+.editModel h4.photo_bottom { height: 78px; line-height: 50px; background: none; color: #333; opacity: 1; }
+.editModel .item_mask { line-height: 78px; }
+ul, li { list-style: none; padding: 0; margin: 0; }
+.editList { border-top: 1px solid #ccc; }
+.editList li { border-bottom: 1px solid #ccc; }
+.add-btn { display: block; height: 60px; line-height: 54px; border: 2px dotted #d9dadc; font-size: 40px; font-weight: 900; text-align: center; margin: 20px 14px; color: #ccc; }
+.add-btn:hover { border-color: #999; text-decoration: none; color: #333; cursor: pointer; }
+
+.weixinItem { display:inline-block; }
+.btns-control { padding:10px; text-align:center; }
+.btns-control a { margin:0 10px; }
+
+/*表格*/
+.table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{white-space:nowrap;}
+.tableinner{width:100%}
+.tableinner.tablewrap{overflow:auto}
+.table-bordered{border:0;}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{border-width:0 0 1px 0;}
+.table thead tr th{border-bottom:2px #ddd solid;}
+.pagination>li>a, .pagination>li>span{border:0;}
+
+/*td 换行*/
+.table thead>tr>td.td_large,
+.table tbody>tr>td.td_large,
+.table tfoot>tr>td.td_large{max-width:600px;white-space:normal;word-break:break-all;}
+.table thead>tr>td.td_middle, 
+.table tbody>tr>td.td_middle, 
+.table tfoot>tr>td.td_middle{max-width:400px;min-width:200px;white-space:normal;word-break:break-all;}
+.table thead>tr>td.td_small, 
+.table tbody>tr>td.td_small, 
+.table tfoot>tr>td.td_small{max-width:200px;white-space:normal;word-break:break-all;}
+
+/* table overflow */
+.table-responsive { overflow: inherit !important;}
+
+/* table 文字自动换行 */
+#divQuestionList.tdwampauto .table thead > tr > th,.tdwampauto .table thead > tr > th,
+#divQuestionList.tdwampauto .table tbody > tr > th,.tdwampauto .table tbody > tr > th,
+#divQuestionList.tdwampauto .table tfoot > tr > th,.tdwampauto .table tfoot > tr > th,
+#divQuestionList.tdwampauto .table thead > tr > td,.tdwampauto .table thead > tr > td,
+#divQuestionList.tdwampauto .table tbody > tr > td,.tdwampauto .table tbody > tr > td,
+#divQuestionList.tdwampauto .table tfoot > tr > td,.tdwampauto .table tfoot > tr > td{
+    white-space: normal;
+}
+
+/*点击出现弹出框时表格溢出*/
+.modal-open .page-container .row{margin-right:0;overflow:hidden;}
+
+.taC{text-align:center;}

@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "应用列表";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+}
+
+<!-- BEGIN PAGE HEADER-->
+
+<!-- END PAGE HEADER-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box light-grey ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-search"></i>@ViewBag.Title
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form id="form1" role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        应用名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="Name" id="Name" type="text" placeholder="配置名称" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        描述：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="Description" id="Description" type="text" placeholder="描述模糊查询" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn green" type="button" id="btnSearch" onclick="searchData()"><i class="icon-search"></i>查 询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+                    <a href="@Url.Action("AddHttpApp", "HttpMessage")" target="_blank" class="btn green btn-sm"><i class="icon-plus"></i>新增</a>
+                    <a href="javascript:void(0);" class="btn green btn-sm" onclick="searchData();"><i class="fa fa-refresh"></i>刷新</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="formPayList" class="form-horizontal">
+                    <div class="form-body" id="divList">
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="/assets/scripts/httpmessage/httpapp.js"></script>
+    <script type="text/javascript">
+        function DeleteHttpApp(id) {
+            if (confirm("确定要删除数据吗？")) {
+                $.ajax({
+                    type: "POST",
+                    data: "",
+                    traditional: true,
+                    url: "/HttpMessage/DeleteHttpApp/" + id,
+                    success: function (res) {
+                        if (res != null && res != "") {
+                            searchData();
+                        }
+                    },
+                    error: function (res) {
+
+                    }
+                });
+            }
+        }
+        jQuery(document).ready(function () {
+            searchData();
+        });
+    </script>
+}

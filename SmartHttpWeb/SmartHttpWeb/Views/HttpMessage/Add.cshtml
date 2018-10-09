@@ -1,0 +1,551 @@
+﻿@{
+    ViewBag.Title = "三方接口新增";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+    var apps = ViewBag.apps as List<SmartHttpEntity.HttpApp>;
+}
+<script src="~/assets/js/knockout-3.3.0.js"></script>
+<div class="row">
+    <div class="col-md-11">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="form1" class="form-horizontal">
+                    <input name="Status" id="Status" type="hidden" placeholder="接口名称" value="1" class="form-control">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">应用ID：</label>
+                                    <div class="col-md-9">
+                                        <select name="AppID" id="AppID" class="form-control select2me" onchange="AppIDChange()">
+                                            <option value="0">--请选择--</option>
+                                            @foreach (var app in apps)
+                        {
+                            <option value="@app.AppID">[@app.AppID]@app.Name</option>
+    }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">接口模块：</label>
+                                    <div class="col-md-9">
+                                        <select name="Moudle" id="Moudle" class="form-control select2me" onchange="MoudleChange()">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">子模块：</label>
+                                    <div class="col-md-9">
+                                        <select name="SubMoudle" id="SubMoudle" class="form-control select2me">
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">接口名称：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Method" id="Method" type="text" placeholder="接口名称" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">版本号：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Version" id="Version" type="text" placeholder="版本号" value="1.0" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">描述：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Description" id="Description" type="text" placeholder="描述" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">接口地址：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Url" id="Url" type="text" placeholder="接口地址" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">接口类型：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <select id="HttpType" name="HttpType" class="form-control select2me" onchange="HttpTypeChange()">
+                                            <option value="WebService" selected="selected">WebService</option>
+                                            <option value="HttpGet">HttpGet</option>
+                                            <option value="HttpPost">HttpPost</option>
+                                            <option value="HttpPut">HttpPut</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Http内容类型：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="ContentType" id="ContentType" type="text" placeholder="内容类型" value="" class="form-control">
+                                        例: text/xml |  text/xml; charset=utf-8 |application/x-www-form-urlencoded(默认)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Http UserAgent：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="UserAgent" id="UserAgent" type="text" placeholder="内容类型" value="" class="form-control">
+                                        Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30 (默认) | 空
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">自定义HttpHeader：</label>
+                                    <div class="col-md-9">
+                                        <input name="Headers" id="Headers" type="text" placeholder="自定义头" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Http协议编码：</label>
+                                    <div class="col-md-9">
+                                        <input name="HttpEncoding" id="HttpEncoding" type="text" placeholder="Http协议编码" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" data-bind="visible: HttpType()!='HttpGet' " style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">内容模板：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <textarea name="WebServiceTemplate" id="WebServiceTemplate" placeholder="" class="form-control" style="margin: 0px 28px 0px 0px; width: 850px; height: 282px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">参数：</label>
+                                    <div class="col-md-9">
+                                        <a class="btn btn-success" onclick="AddArgs1()"><i class="icon-plus icon-white"></i>添加</a>
+                                        <table class="table table-striped table-bordered table-hover" data-bind="visible:WSInterfaceArgs().length>0" style="display:none;">
+                                            <tr>
+                                                <td>名称</td>
+                                                <td>类型</td>
+                                                <td style="display:none;">注释</td>
+                                                <td>操作</td>
+                                            </tr>
+                                            <tbody data-bind="foreach: { data: WSInterfaceArgs, as: 'WSInterfaceArg' }">
+                                                <tr>
+                                                    <td>
+                                                        <input name="NameArgs" type="text" placeholder="" class="form-control" data-bind="value:WSInterfaceArg.Name">
+                                                    </td>
+                                                    <td>
+                                                        <input name="TypeArgs" type="text" placeholder="" class="form-control" data-bind="value:WSInterfaceArg.Type">
+                                                    </td>
+                                                    <td style="display:none;">
+                                                        <input name="DescriptionArgs" type="text" placeholder="" class="form-control" data-bind="value:WSInterfaceArg.Description">
+                                                    </td>
+                                                    <td>
+                                                        <button onclick="return deleteex(this)">删除</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">异常映射：</label>
+                                    <div class="col-md-9">
+                                        <select name="IsValid" id="IsValid" class="form-control select2me">
+                                            <option value="0">不映射</option>
+                                            <option value="1">映射</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">结果路径(可以用占位符来获取{0})：</label>
+                                    <div class="col-md-9">
+                                        <input name="ResultPath" id="ResultPath" type="text" placeholder="结果路径" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">正确返回：</label>
+                                    <div class="col-md-9">
+                                        <input name="TrueResult" id="TrueResult" type="text" placeholder="正确返回" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">正确包含：</label>
+                                    <div class="col-md-9">
+                                        <input name="TrueResultContain" id="TrueResultContain" type="text" placeholder="正确包含" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">错误包含：</label>
+                                    <div class="col-md-9">
+                                        <input name="FalseResultContain" id="FalseResultContain" type="text" placeholder="错误包含" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">异常路径：</label>
+                                    <div class="col-md-9">
+                                        <input name="ExceptionPath" id="ExceptionPath" type="text" placeholder="异常路径" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">异常返回值：</label>
+                                    <div class="col-md-9">
+                                        <a class="btn btn-success" onclick="AddWSException('','')"><i class="icon-plus icon-white"></i>新增</a>
+                                        <select name="WSExceptionType" id="WSExceptionType" class="form-control select2me">
+                                            <option value="" selected="selected">相等</option>
+                                            <option value="Contain">包含</option>
+                                        </select>
+                                        <table class="table table-striped table-bordered table-hover" data-bind="visible:WSExceptions().length>0" style="display:none;">
+                                            <tr>
+                                                <td>原始异常</td>
+                                                <td>映射异常</td>
+                                                <td>操作</td>
+                                            </tr>
+                                            <tbody data-bind="foreach: { data: WSExceptions, as: 'WSException' }">
+                                                <tr>
+                                                    <td>
+                                                        <input name="Codes" type="text" placeholder="" class="form-control" data-bind="value:WSException.Code">
+                                                    </td>
+                                                    <td>
+                                                        <input name="Messages" type="text" placeholder="" class="form-control" data-bind="value:WSException.Message">
+                                                    </td>
+                                                    <td>
+                                                        <button onclick="return deleteex(this)">删除</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">超时时间(秒)(0默认超时)：</label>
+                                    <div class="col-md-9">
+                                        <input name="TimeOut" id="TimeOut" type="text" placeholder="超时时间" value="0" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display:none;">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">全局加解密DLL：</label>
+                                    <div class="col-md-9">
+                                        <input name="EncryptDLLName" id="EncryptDLLName" type="text" placeholder="全局加解密DLL" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">失败尝试次数：</label>
+                                    <div class="col-md-9">
+                                        <input name="LoopTime" id="LoopTime" type="text" placeholder="失败尝试次数" value="-1" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">失败尝试间隔(秒)：</label>
+                                    <div class="col-md-9">
+                                        <input name="LoopWaitTime" id="LoopWaitTime" type="text" placeholder="失败尝试间隔时间" value="0" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">关闭日志：</label>
+                                    <div class="col-md-9">
+                                        <select id="IsLog" name="IsLog" class="form-control select2me">
+                                            <option value="false" selected="selected">否</option>
+                                            <option value="true">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="button" class="btn green" id="btnSave" onclick="Add()">保 存</button>
+                                        <button type="reset" class="btn default">取 消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        var viewModel = function () {;
+            var self = this;
+            self.HttpType = ko.observable(document.getElementById('HttpType').value);
+            self.WSInterfaceArgs = ko.observableArray([]);
+            self.WSExceptions = ko.observableArray([]);
+            self.AddWSInterfaceArg = function (name,  type, desc) {
+                self.WSInterfaceArgs.push({ Name: name,  Type: type, Description: desc });
+            }
+            self.AddWSException = function (code, message) {
+                self.WSExceptions.push({ Code: code, Message: message });
+            }
+            self.HttpTypeChange = function () {
+                HttpType(document.getElementById('HttpType').value);
+            };
+        };
+        ko.applyBindings(viewModel);
+
+        function AddArgs1() {
+            AddWSInterfaceArg("", "", "");
+        }
+
+        function Add() {
+            if ($("#AppID").val() == "0") {
+                App.showTips("请选择应用", 2500);
+                return;
+            }
+            var postData = $("#form1").ToMVCData();
+            var str = $("#AppID").find("option:selected").text().split(']');
+            postData.AppName = str[1];
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/Add",
+                success: function (res) {
+                    if (res.result == false) {
+                        App.showTips(res.err, 2500);
+                    }
+                    else {
+                        App.showTips("保存成功", 2500)
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+
+
+        function AppIDChange() {
+            if ($("#AppID").val() != "0") {
+                $.ajax({
+                    type: "POST",
+                    data: { appID: $("#AppID").val() },
+                    traditional: true,
+                    url: "/HttpMessage/GetMoudles",
+                    success: function (res) {
+                        if (res.result == false) {
+                            App.showTips(res.err, 2500);
+                        }
+                        else {
+                            $("#Moudle option").remove();
+                            var moudles = res.moudles;
+                            for (var i = 0; i < moudles.length; i++) {
+                                $("#Moudle").append("<option value='" + moudles[i] + "'>" + moudles[i] + "</option>");
+                            }
+                            if (moudles.length > 0) {
+                                $("#Moudle").select2("val", moudles[0]);
+                                GetSubMoudles();
+                            }
+                        }
+                    },
+                    error: function (res) {
+                    }
+                });
+            }
+            GetHttpUrl();
+        }
+
+        function GetSubMoudles() {
+            if ($("#Moudle").val() != "") {
+                $("#SubMoudle option").remove();
+                $.ajax({
+                    type: "POST",
+                    data: { appID: $("#AppID").val(), moudle: $("#Moudle").val() },
+                    traditional: true,
+                    url: "/HttpMessage/GetSubMoudles",
+                    success: function (res) {
+                        if (res.result == false) {
+                            App.showTips(res.err, 2500);
+                        }
+                        else {
+                            $("#SubMoudle option").remove();
+                            $("#SubMoudle").select2("val", "");
+                            var moudles = res.moudles;
+                            for (var i = 0; i < moudles.length; i++) {
+                                $("#SubMoudle").append("<option value='" + moudles[i] + "'>" + moudles[i] + "</option>");
+                            }
+                            if (moudles.length > 0) {
+                                $("#SubMoudle").select2("val", moudles[0]);
+                            }
+                        }
+                    },
+                    error: function (res) {
+                    }
+                });
+            }
+        }
+
+        function GetHttpUrl() {
+            if ($("#AppID").val() != "0") {
+                $.ajax({
+                    type: "POST",
+                    data: { appID: $("#AppID").val()},
+                    traditional: true,
+                    url: "/HttpMessage/GetHttpUrl",
+                    success: function (res) {
+                        if (res.result == false) {
+                            App.showTips(res.err, 2500);
+                        }
+                        else {
+                            $("#Url").val(res.data);
+                        }
+                    },
+                    error: function (res) {
+                    }
+                });
+            }
+        }
+
+        function MoudleChange() {
+            GetSubMoudles();
+        }
+
+        function deleteex(obj) {
+            $(obj).parent().parent().remove();
+        }
+
+        $(document).ready(function () {
+            AppIDChange();
+        });
+    </script>
+}

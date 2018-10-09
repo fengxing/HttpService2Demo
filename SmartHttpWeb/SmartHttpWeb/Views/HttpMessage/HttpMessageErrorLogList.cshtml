@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "异常日志列表";
+    List<SmartHttpWeb.Entity.Malls> mallList = ViewBag.mallList;
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/HttpMessageErrorLogList";
+}
+
+<!-- BEGIN PAGE HEADER-->
+<!-- END PAGE HEADER-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box light-grey ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-search"></i>@ViewBag.Title
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form id="form1" role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        应用名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="MallID" class="form-control select2me" name="MallID">
+                                            <option value="0" selected="selected">请选择</option>
+                                            @if (mallList != null && mallList.Count != 0)
+                                            {
+                                                foreach (var mall in mallList)
+                                                {
+                                                    <option value="@mall.ID">[@mall.ID]@mall.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        接口类型：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="Type" name="Type" class="form-control select2me">
+                                            <option value="MallCardApi">会员</option>
+                                            <option value="Sms">短信</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn green" type="button" id="btnSearch" onclick="searchData()"><i class="icon-search"></i>查 询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+                    <a href="javascript:void(0);" class="btn green btn-sm" onclick="searchData();"><i class="fa fa-refresh"></i>刷新</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="formPayList" class="form-horizontal">
+                    <div class="form-body" id="divList">
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/highlight.min.js"></script>
+    <script type="text/javascript">
+        function DeleteErrorLog(message, mallid, type) {
+            var post = {
+                Message: message,
+                MallID: mallid,
+                Type: type
+            };
+            $.ajax({
+                type: "POST",
+                data: post,
+                traditional: true,
+                url: "/HttpMessage/DeleteHttpMessageErrorLog/",
+                success: function (res) {
+                    searchData();
+                },
+                error: function (res) {
+
+                }
+            });
+        }
+
+        function AddErrorLog(message, mallid, type) {
+            var message = prompt("屏蔽的异常", message);
+            var post = {
+                Message: message,
+                MallID: mallid,
+                Type: type
+            };
+            $.ajax({
+                type: "POST",
+                data: post,
+                traditional: true,
+                url: "/HttpMessage/AddHttpMessageErrorLog/",
+                success: function (res) {
+                    searchData();
+                },
+                error: function (res) {
+
+                }
+            });
+        }
+
+        function AddDeleteErrorLog(message, mallid, type) {
+            var post = {
+                Message: message,
+                MallID: mallid,
+                Type: type
+            };
+            $.ajax({
+                type: "POST",
+                data: post,
+                traditional: true,
+                url: "/HttpMessage/AddDeleteHttpMessageErrorLog/",
+                success: function (res) {
+                    searchData();
+                },
+                error: function (res) {
+
+                }
+            });
+        }
+
+        function searchData(pageIndex) {
+            pageIndex = pageIndex || 1;
+            var rqData = $("#form1").ToMVCData();
+            rqData.PageIndex = pageIndex;
+            var pageContent = $('#divList');
+            App.blockUI(pageContent, false);
+            $.ajax({
+                type: "POST",
+                data: rqData,
+                traditional: true,
+                url: "/HttpMessage/HttpMessageErrorLogListView",
+                success: function (res) {
+                    App.unblockUI(pageContent);
+                    if (res != null && res != "") {
+                        $("#divList").html(res);
+                    }
+                    $('pre code').each(function (i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                    fixedTableColumn();
+                },
+                error: function (res) {
+                    App.unblockUI(pageContent);
+                }
+            });
+            return false;
+        }
+
+        jQuery(document).ready(function () {
+            searchData();
+        });
+    </script>
+}

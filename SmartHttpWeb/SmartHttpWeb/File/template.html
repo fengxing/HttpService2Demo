@@ -1,0 +1,250 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Login接口文档</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: 12px;
+        }
+
+        .red {
+            color: #f00;
+        }
+
+        body {
+            min-width: 1000px;
+        }
+
+        .box {
+            padding-left: 20px;
+            width: 80%;
+        }
+
+        .box-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            height: 36px;
+            line-height: 36px;
+            border-bottom: 1px solid #d0dfed;
+        }
+
+        .box-notice {
+            padding-bottom: 20px;
+        }
+
+        .notice-title {
+            height: 24px;
+            line-height: 24px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .notice-body {
+            padding-left: 24px;
+            line-height: 22px;
+        }
+
+            .notice-body li {
+                list-style-type: square;
+            }
+
+        .interface-title {
+            height: 34px;
+            line-height: 34px;
+            background: #f6faff;
+            border: 1px solid #becfdd;
+            color: #333;
+            padding-left: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .item-tt {
+            position: relative;
+            height: 30px;
+            line-height: 30px;
+        }
+
+            .item-tt span {
+                color: #0455CA;
+                font-size: 14px;
+                font-weight: bold;
+                background: #fff;
+                position: relative;
+                background: #fff;
+                z-index: 21;
+                padding: 0px 10px;
+            }
+
+                .item-tt span.line {
+                    border-bottom: 1px dashed #666;
+                    display: block;
+                    position: relative;
+                    top: -15px;
+                    z-index: 20;
+                }
+
+        .item-bd {
+            padding-left: 30px;
+        }
+
+            .item-bd ul li {
+                list-style: none;
+                height: 24px;
+                line-height: 24px;
+            }
+
+        .item-lft, .item-rt {
+            float: left;
+            line-height: 24px;
+            margin: 10px 0px;
+        }
+
+        .item-lft {
+            clear: both;
+            width: 140px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .item-rt {
+            margin-left: 20px;
+            width: 85%;
+            padding-left: 10px;
+        }
+
+        .code {
+            border: 1px dashed #999;
+            background: #fafafa;
+            color: #555;
+            font-family: "Courier New";
+            margin-left: 30px;
+            width: 79%;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid #EDECEC;
+        }
+
+            table th, table td {
+                border: 1px solid #EDECEC;
+            }
+
+            table th {
+                line-height: 30px;
+                background: #f8f8f8;
+            }
+
+            table td {
+                line-height: 30px;
+                padding-left: 10px;
+            }
+
+            table tr.odd {
+                background: #fbfbfb;
+            }
+
+        .interface-item {
+            clear: both;
+        }
+        button {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            background-color: rgba(61,221,240,0.7);
+            border: 1px solid #36A9C7;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body style="position:relative;">
+    <div class="box">
+        <div class="box-title">Login接口文档</div>
+        <div class="box-notice">
+            <div class="red notice-title">接口版本:@Version</div>
+            <div class="red notice-title">所属应用AppID:@AppID</div>
+            <div class="red notice-title">是否需要登录:@IsAllowAnonymous</div>
+            <div class="red notice-title">是否开启缓存:@IsCache</div>
+            @CacheSecondTag
+        </div>
+        <div class="interface">
+            <div class="interface-item">
+                <div class="item-tt">
+                    <span>接口文档</span> <span class="line"></span>
+                </div>
+                <div class="item-bd">
+                    <div class="item-lft">描述</div>
+                    <div class="item-rt">@Description</div>
+                    <div class="item-lft">请求参数</div>
+                    <div class="item-rt">
+                        <table width="100%">
+                            <tbody>
+                                @Request
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="item-lft">返回参数</div>
+                    <div class="item-rt">
+                        <table width="100%">
+                            <tbody>
+                                @Response
+                            </tbody>
+                        </table>
+                    </div>
+                    @ResponseClass
+                    <div class="item-lft" style="color:red">异常信息</div>
+                    <div class="item-rt">
+                        <table width="100%">
+                            <tbody id="error">
+                                <tr>
+                                    <button id="btn1">删除类型错误</button>
+                                    <button id="btn2">删除为空错误</button>
+                                    <button id="btn3">删除程序异常</button>
+                                </tr>
+                                @Exception
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var but1 = document.getElementById('btn1');
+    var but2 = document.getElementById('btn2');
+    var but3 = document.getElementById('btn3');
+    var error = document.getElementById('error');
+    var tr = error.getElementsByTagName('tr');
+
+    btn1.onclick = function () {
+        for (var i = tr.length - 1; i > 0; i--) {
+            if (tr[i].getElementsByTagName('td')[0].innerHTML.lastIndexOf("类型错误") != -1) {
+                error.removeChild(tr[i])
+            }
+        }
+    }
+    btn2.onclick = function () {
+        for (var i = tr.length - 1; i > 0; i--) {
+            if (tr[i].getElementsByTagName('td')[0].innerHTML.lastIndexOf("为空") != -1) {
+                error.removeChild(tr[i])
+            }
+        }
+    }
+    btn3.onclick = function () {
+        for (var i = tr.length - 1; i > 0; i--) {
+            if (tr[i].getElementsByTagName('td')[0].innerHTML.lastIndexOf("类型错误") == -1) {
+                if (tr[i].getElementsByTagName('td')[0].innerHTML.lastIndexOf("为空") == -1) {
+                    error.removeChild(tr[i])
+                }
+
+            }
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,139 @@
+﻿@model  SmartHttpEntity.HttpMessage
+@{
+    ViewBag.Title = "三方接口编辑";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/Index";
+    var apps = ViewBag.apps as List<SmartHttpEntity.HttpApp>;
+    var app = apps.FirstOrDefault(r => r.AppID == Model.AppID);
+    Model.GetWsExcepitons();
+    Model.GetInterfaceArgs();
+}
+
+<script src="~/assets/js/knockout-3.3.0.js"></script>
+<div class="row">
+    <div class="col-md-11">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="form1" class="form-horizontal">
+                    <input name="ID" id="ID" type="hidden" value="@Model.ID">
+                    <div class="form-body">
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">接口名称：<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input name="Version" id="Version" readonly="readonly" disabled="disabled" type="text" placeholder="" value="@Model.Method" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">异常映射：</label>
+                                    <div class="col-md-9">
+                                        <select name="IsValid" id="IsValid" class="form-control select2me">
+                                            @if (Model.IsValid)
+                                            {
+                                        <option value="0">不映射</option>
+                                        <option value="1" selected="selected">映射</option>
+                                            }
+                                            else
+                                            {
+                                        <option value="0" selected="selected">不映射</option>
+                                        <option value="1">映射</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">异常返回值：</label>
+                                    <div class="col-md-9">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <tr>
+                                                <td>原始异常</td>
+                                                <td>映射异常</td>
+                                            </tr>
+                                            <tbody>
+                                                @foreach (var item in Model.GetWsExcepitons())
+                                                {
+                                            <tr>
+                                                <td>
+                                                    <input name="Codes" type="text" disabled="disabled" readonly="readonly" placeholder="" class="form-control" value="@item.Name">
+                                                </td>
+                                                <td>
+                                                    <input name="Messages" type="text" placeholder="" class="form-control" value="@item.Value">
+                                                </td>
+                                            </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="button" class="btn green" id="btnSave" onclick="Update()">保 存</button>
+                                        <button type="reset" class="btn default">取 消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+
+        function Update() {
+            var postData = $("#form1").ToMVCData();
+            postData.AppName = $("#AppID").find("option:selected").text();
+            $.ajax({
+                type: "POST",
+                data: postData,
+                traditional: true,
+                url: "/HttpMessage/UpdateValid",
+                success: function (res) {
+                    if (res.result == false) {
+                        App.showTips(res.err, 2500);
+                    }
+                    else {
+                        App.showTips("保存成功", 2500, function () {
+                        });
+                    }
+                },
+                error: function (res) {
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿@model List<SmartHttpWeb.HttpMessageErrorLog>
+@{
+    Layout = null;
+}
+<div class="tableinner">
+    <table class="table table-striped table-bordered table-advance table-hover fixed_table">
+        @if (Model.Count > 0)
+        {
+            <thead>
+                <tr>
+                    <th class="tac">操作</th>
+                    <th class="tac">MallID</th>
+                    <th class="tac">异常信息</th>
+                    <th class="tac">请求信息</th>
+                    <th class="tac">时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entity in Model)
+                {
+                    var request = entity.GetRequest();
+                    <tr>
+                        <td class="tac">
+                            <button type="button" class="btn default btn-xs red" onclick="DeleteErrorLog('@entity.GetMessage()','@entity.MallID','@entity.Type')">删 除</button>
+                            <button type="button" class="btn default btn-xs" onclick="AddErrorLog('@entity.GetMessage()','@entity.MallID','@entity.Type')">添加异常屏蔽</button>
+                            <button type="button" class="btn default btn-xs red" onclick="AddDeleteErrorLog('@entity.GetMessage()','@entity.MallID','@entity.Type')">添加删除异常屏蔽</button>
+                        </td>
+                        <td class="tac">
+                            @entity.MallID
+                        </td>
+                        <td class="tac">
+                            @entity.GetMessage()
+                        </td>
+                        <td class="tac">
+                            @if (!string.IsNullOrWhiteSpace(request))
+                            {
+                                <div class="doc-code demo-highlight">
+                                    <pre>
+                                    <code id="SecRes" class="json">@request</code>
+                                    </pre>
+                                </div>
+                            }
+                        </td>
+                        <td class="tac">@entity.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                }
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                <tr>
+                    <td style="text-align: center">暂无数据....</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+@Html.Raw(ViewBag.pager)

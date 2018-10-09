@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "接口日志列表";
+    Layout = "/Views/Shared/_LayoutV2.cshtml";
+    ViewBag.Url = "/HttpMessage/HttpMessageLogList";
+    var apps = ViewBag.apps as List<SmartHttpEntity.HttpApp>;
+}
+
+<!-- BEGIN PAGE HEADER-->
+<!-- END PAGE HEADER-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box light-grey ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-search"></i>@ViewBag.Title
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form id="form1" role="form" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        应用名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="AppID" class="form-control select2me" name="AppID">
+                                            <option value="" selected="selected">请选择</option>
+                                            @if (apps != null && apps.Count != 0)
+                                            {
+                                                foreach (var app in apps)
+                                                {
+                                            <option value="@app.AppID">[@app.AppID]@app.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        接口名称：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="Method" id="Method" type="text" placeholder="接口名称" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        模糊参数：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="Args" id="Args" type="text" placeholder="接口参数" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        是否成功：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="IsSuccess" name="IsSuccess" class="form-control select2me">
+                                            <option value="">请选择</option>
+                                            <option value="True">成功</option>
+                                            <option value="False">失败</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        事务编号：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="ExecuteID" id="ExecuteID" type="text" placeholder="" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        用户UID：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="UID" id="UID" type="text" placeholder="" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        HTTP状态码：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input name="Code" id="Code" type="text" placeholder="" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn green" type="button" id="btnSearch" onclick="searchData()"><i class="icon-search"></i>查 询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>@ViewBag.Title</div>
+                <div class="actions">
+                    <a href="javascript:void(0);" class="btn green btn-sm" onclick="searchData();"><i class="fa fa-refresh"></i>刷新</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form role="form" id="formPayList" class="form-horizontal">
+                    <div class="form-body" id="divList">
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @*<script src="~/Scripts/html2canvas.js"></script>*@
+    <script src="~/Scripts/highlight.min.js"></script>
+    <script src="/assets/scripts/httpmessage/httpmessagelog.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            searchData();
+        });
+    </script>
+}

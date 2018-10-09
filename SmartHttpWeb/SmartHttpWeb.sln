@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHttpWeb", "SmartHttpWeb\SmartHttpWeb.csproj", "{D4DDB4CF-A939-46BC-ACEC-995EED6F3A6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBLL", "SmartBLL\SmartBLL.csproj", "{F2EE0174-EEA5-41FB-899A-9D159E34945E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHttpEntity", "SmartHttpEntity\SmartHttpEntity.csproj", "{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4DDB4CF-A939-46BC-ACEC-995EED6F3A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DDB4CF-A939-46BC-ACEC-995EED6F3A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DDB4CF-A939-46BC-ACEC-995EED6F3A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DDB4CF-A939-46BC-ACEC-995EED6F3A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2EE0174-EEA5-41FB-899A-9D159E34945E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2EE0174-EEA5-41FB-899A-9D159E34945E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2EE0174-EEA5-41FB-899A-9D159E34945E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2EE0174-EEA5-41FB-899A-9D159E34945E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A78A99E-EAF4-48F3-997E-2CA86F3622E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
