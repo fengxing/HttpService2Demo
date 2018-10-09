@@ -1,5 +1,9 @@
 # HttpService2Demo
-网关核心服务2.0演示版
+网关核心服务2.0演示版 
+SmartHttpService   网关
+SmartHttpWeb       接口配置平台 (定义网关需要的接口元信息)
+ApiTranApiDemo     一个业务演示案例 
+
 
 网关这块是整个微服务重要的核心，这块代码使用上基本没有任何限制，喜欢的朋友尽情使用就可以了。
 
