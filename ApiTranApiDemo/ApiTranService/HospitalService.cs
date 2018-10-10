@@ -1,8 +1,8 @@
-﻿using System;
-using ApiTranDb;
+﻿using ApiTranDb;
 using ApiTranRequest.Hospital;
-using ApiTranRequest.Hospital.Response;
+using ApiTranRequest.Hospital.AddHospital;
 using SmartOnlineEntity;
+using System;
 
 namespace ApiTranService
 {
@@ -26,6 +26,15 @@ namespace ApiTranService
             var hospital = HospitalRep.GetByID(request.HospitalID).ThrowIfNull("医院不存在");
             hospital.Name = request.Name;
             HospitalRep.Update(hospital);
+        }
+
+        public static void DeleteHospital(DeleteHospitalRequest request)
+        {
+            var hospital = HospitalRep.GetByID(request.HospitalID);
+            if (hospital != null)
+            {
+                HospitalRep.Delete(hospital);
+            }
         }
     }
 }

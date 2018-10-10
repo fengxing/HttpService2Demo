@@ -36,9 +36,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hospital\AddHospitalRequest.cs" />
-    <Compile Include="Hospital\Response\AddHospitalResponse.cs" />
+    <Compile Include="Hospital\DeleteHospitalRequest.cs" />
+    <Compile Include="Hospital\AddHospital\AddHospitalResponse.cs" />
     <Compile Include="Hospital\UpdateHospitalRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hospital\Response\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

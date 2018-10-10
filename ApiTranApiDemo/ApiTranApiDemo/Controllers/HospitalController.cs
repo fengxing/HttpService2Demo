@@ -1,5 +1,5 @@
 ﻿using ApiTranRequest.Hospital;
-using ApiTranRequest.Hospital.Response;
+using ApiTranRequest.Hospital.AddHospital;
 using ApiTranService;
 using System;
 using System.Web.Http;
@@ -36,6 +36,19 @@ namespace ApiTranApiDemo.Controllers
         public void UpdateHospital(UpdateHospitalRequest request)
         {
             HospitalService.UpdateHospital(request);
+        }
+
+        /// <summary>
+        /// 删除医院
+        /// </summary>
+        /// <param name="request"></param>
+        [Route("Hospital/DeleteHospital")]
+        [HttpPost]
+        [DataUpdate]
+        [AllowAnonymous]
+        public void DeleteHospital(DeleteHospitalRequest request)
+        {
+            HospitalService.DeleteHospital(request);
         }
     }
 }
