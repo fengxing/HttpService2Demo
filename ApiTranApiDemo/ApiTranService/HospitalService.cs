@@ -3,6 +3,7 @@ using ApiTranRequest.Hospital;
 using ApiTranRequest.Hospital.AddHospital;
 using SmartOnlineEntity;
 using System;
+using ApiTranRequest.Hospital.GetHospital;
 
 namespace ApiTranService
 {
@@ -21,6 +22,11 @@ namespace ApiTranService
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <exception>医院不存在</exception>
         public static void UpdateHospital(UpdateHospitalRequest request)
         {
             var hospital = HospitalRep.GetByID(request.HospitalID).ThrowIfNull("医院不存在");
@@ -35,6 +41,38 @@ namespace ApiTranService
             {
                 HospitalRep.Delete(hospital);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception>医院不存在</exception>
+        public static GetHospitalResponse GetHospital(GetHospitalRequest request)
+        {
+            var hospital = HospitalRep.GetByID(request.HospitalID).ThrowIfNull("医院不存在");
+            return new GetHospitalResponse()
+            {
+                CreateUserItem = new ApiTranRequest.CreateUserItem()
+                {
+                    CreateTime = hospital.CreateTime,
+                    CreateUserID = Guid.Empty,
+                    Name = ""
+                },
+                UpdateUserItem = new ApiTranRequest.UpdateUserItem()
+                {
+                    UpdateUserID = Guid.Empty,
+                    Name = "",
+                    UpdateTime = hospital.UpdateTime,
+                },
+                HospitalItem = new HospitalItem()
+                {
+                    HospitalID = hospital.ID,
+                    Name = hospital.Name
+                }
+            };
+
         }
     }
 }
