@@ -68,18 +68,7 @@ namespace ApiTranService
         /// </summary>
         public string RequestID { get; set; }
 
-        public int? ExecuteHashCode
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public int? ExecuteHashCode { get; set; }
 
         /// <summary>
         /// 请求基本信息

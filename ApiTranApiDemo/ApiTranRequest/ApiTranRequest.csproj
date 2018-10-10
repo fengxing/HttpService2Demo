@@ -42,6 +42,10 @@
     <Compile Include="Hospital\GetHospitalRequest.cs" />
     <Compile Include="Hospital\GetHospital\GetHospitalResponse.cs" />
     <Compile Include="Hospital\GetHospital\HospitalItem.cs" />
+    <Compile Include="Hospital\SearchHospitalRequest.cs" />
+    <Compile Include="Hospital\SearchHospital\HospitalItem.cs" />
+    <Compile Include="Hospital\SearchHospital\SearchHospitalItem.cs" />
+    <Compile Include="Hospital\SearchHospital\SearchHospitalResponse.cs" />
     <Compile Include="Hospital\UpdateHospitalRequest.cs" />
     <Compile Include="NumberIntAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

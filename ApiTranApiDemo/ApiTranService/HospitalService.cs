@@ -4,6 +4,10 @@ using ApiTranRequest.Hospital.AddHospital;
 using SmartOnlineEntity;
 using System;
 using ApiTranRequest.Hospital.GetHospital;
+using ApiTranRequest.Hospital.SearchHospital;
+using SmartHelper.System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ApiTranService
 {
@@ -66,13 +70,68 @@ namespace ApiTranService
                     Name = "",
                     UpdateTime = hospital.UpdateTime,
                 },
-                HospitalItem = new HospitalItem()
+                HospitalItem = new ApiTranRequest.Hospital.GetHospital.HospitalItem()
                 {
                     HospitalID = hospital.ID,
                     Name = hospital.Name
                 }
             };
 
+        }
+
+        public static SearchHospitalResponse SearchHospital(SearchHospitalRequest request)
+        {
+            #region 查询条件
+            var whereList = new List<string>();
+            if (request.KeyWords.IsNotNull())
+            {
+                whereList.Add("Name like '%'+@Key+'%'");
+            }
+            if (request.StartTime.HasValue ||
+                request.EndTime.HasValue)
+            {
+                var time = new TimeFromTo()
+                {
+                    StartTime = request.StartTime,
+                    EndTime = request.EndTime
+                };
+                var sql = time.ToSql();
+                whereList.Add(sql);
+            }
+            #endregion
+            #region 查询
+            var pageT = HospitalRep.Search<Hospital>(
+              request.PageIndex,
+              request.PageSize,
+              request.Sort,
+              request.GetOrderByField(),
+              whereList,
+              new
+              {
+                  Key = request.KeyWords,
+              });
+            #endregion
+            #region 返回
+            return new SearchHospitalResponse()
+            {
+                Count = pageT.Count,
+                PageSize = request.PageSize,
+                SearchHospitalItems = pageT.Ts.Select(r => new ApiTranRequest.Hospital.SearchHospital.SearchHospitalItem()
+                {
+                    HospitalItem = new ApiTranRequest.Hospital.SearchHospital.HospitalItem()
+                    {
+                        HospitalID = r.ID,
+                        Name = r.Name,
+                    },
+                    CreateUserItem = new ApiTranRequest.CreateUserItem()
+                    {
+                        CreateTime = r.CreateTime,
+                        CreateUserID = Guid.Empty,
+                        Name = ""
+                    }
+                })
+            };
+            #endregion
         }
     }
 }

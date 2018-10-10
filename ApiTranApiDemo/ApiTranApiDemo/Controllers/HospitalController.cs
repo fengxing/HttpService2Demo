@@ -1,6 +1,7 @@
 ﻿using ApiTranRequest.Hospital;
 using ApiTranRequest.Hospital.AddHospital;
 using ApiTranRequest.Hospital.GetHospital;
+using ApiTranRequest.Hospital.SearchHospital;
 using ApiTranService;
 using System;
 using System.Web.Http;
@@ -65,5 +66,18 @@ namespace ApiTranApiDemo.Controllers
         {
             return HospitalService.GetHospital(request);
         }
+
+        /// <summary>
+        /// 检索医院信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [Route("Hospital/SearchHospital")]
+        [HttpPost]
+        public SearchHospitalResponse SearchHospital(SearchHospitalRequest request)
+        {
+            return HospitalService.SearchHospital(request);
+        }
+
     }
 }
