@@ -74,6 +74,7 @@ namespace ApiTranApiDemo.Controllers
         /// <returns></returns>
         [Route("Hospital/SearchHospital")]
         [HttpPost]
+        [AllowAnonymous]
         public SearchHospitalResponse SearchHospital(SearchHospitalRequest request)
         {
             return HospitalService.SearchHospital(request);
